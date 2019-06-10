@@ -1,26 +1,20 @@
-% COMMANDS:
-% - bigmid: Dynamically sized mid bar.
-% - spacerule: add a centered dashed line with space above and below
-% - \dbox{#1}: Adds a nicely formatted slightly grey box around #1
-% - \begin{dproof} ... \end{dproof}: A nicely formatted proof. Use \qedhere to place qed
-% - \ddef{#1}{#2}: Makes a definition (and counts defs). #1 goes inside parens at beginning, #2 is actual def.
-% - \begin{dtable}{#1} ... \end{dtable}: Makes a minimalist table. #1 is the alignment, for example: {clrr} would be a 4 column, center left right right table.
-
 % Dynamically sized mid bar.
 \newcommand{\bigmid}{\mathrel{\Big|}}
 
-
 % ---- Colors and Notes ----
-\definecolor{dblue}{RGB}{98, 140, 190}
-\definecolor{dlblue}{RGB}{216, 235, 255}
-\definecolor{dgreen}{RGB}{124, 155, 127}
-\definecolor{dpink}{RGB}{207, 166, 208}
-\definecolor{dyellow}{RGB}{255, 248, 199}
-\definecolor{dgray}{RGB}{46, 49, 49}
+\definecolor{dblue}{RGB}{102, 120, 173}
+\definecolor{dgreen}{RGB}{118, 167, 125}
+\definecolor{dred}{RGB}{198, 113, 113}
+\definecolor{dorange}{RGB}{230, 169, 132}
+\definecolor{dtan}{RGB}{221, 215, 200}
+\definecolor{dgray}{RGB}{94, 94, 94}
+\definecolor{ddgray}{RGB}{46, 49, 49}
 
-% TODO
-\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
-\newcommand{\dnote}[1]{\textcolor{dblue}{Dave: #1}}
+% Lights
+\definecolor{dlblue}{RGB}{169, 193, 219}
+\definecolor{dlgreen}{RGB}{154, 195, 157}
+\definecolor{dyellow}{RGB}{246, 240, 223}
+
 
 % URL
 \newcommand{\durl}[1]{\textcolor{dblue}{\underline{\url{#1}}}}
@@ -32,11 +26,15 @@
 % Under set numbered subset of equation
 \newcommand{\numeq}[3]{\underset{\textcolor{#2}{\circled{#1}}}{\textcolor{#2}{#3}}}
 
+\newcommand{\dnote}[1]{\textcolor{dblue}{Dave: #1}}
+
 % ---- Abbreviations -----
 \newcommand{\tc}[2]{\textcolor{#1}{#2}}
 \newcommand{\ubr}[1]{\underbrace{#1}}
 \newcommand{\uset}[2]{\underset{#1}{#2}}
 \newcommand{\eps}{\varepsilon}
+\newcommand{\KL}[2]{D_{\text{KL}}\left(#1 \mid \mid #2\right)}
+\newcommand{\bKL}[2]{D_{\text{KL}}\left(#1 \bigmid \bigmid #2\right)}
 
 % Typical limit:
 \newcommand{\nlim}{\underset{n \rightarrow \infty}{\lim}}
@@ -51,15 +49,24 @@
 \newcommand{\indic}{\mathbbm{1}}
 \newcommand{\bE}{\mathbb{E}}
 
+\newcommand{\longra}{\longrightarrow}
+\newcommand{\longla}{\longleftarrow}
 \newcommand{\ra}{\rightarrow}
 \newcommand{\la}{\leftarrow}
+
+% argmin, argmax.
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% Quick Matrix.
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
 
 % ---- Figures, Boxes, Theorems, Etc. ----
 
 % Basic Image
-\newcommand{\img}[1]{
+\newcommand{\img}[2]{
 \begin{center}
-\includegraphics[\width=0.6\textwidth]{#1}
+\includegraphics[scale=#2]{#1}
 \end{center}}
 
 % Put a fancy box around things.
@@ -113,9 +120,6 @@
 {\begin{algorithm}\caption{#1}\begin{algorithmic}}
 {\end{algorithmic}\end{algorithm}}
 
-
-
-
 % Dave Table
 \newenvironment{dtable}[1]
 {\begin{figure}[h]
@@ -128,12 +132,13 @@
 % For numbering the last of an align*
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
 
-\newtheorem{conjecture}{Conjecture}[section]
-\newtheorem{remark}{Remark}[section]
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{assumption}{Assumption}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{corollary}{Corollary}
+\newtheorem{claim}{Claim}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
