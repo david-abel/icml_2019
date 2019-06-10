@@ -1,0 +1,139 @@
+% COMMANDS:
+% - bigmid: Dynamically sized mid bar.
+% - spacerule: add a centered dashed line with space above and below
+% - \dbox{#1}: Adds a nicely formatted slightly grey box around #1
+% - \begin{dproof} ... \end{dproof}: A nicely formatted proof. Use \qedhere to place qed
+% - \ddef{#1}{#2}: Makes a definition (and counts defs). #1 goes inside parens at beginning, #2 is actual def.
+% - \begin{dtable}{#1} ... \end{dtable}: Makes a minimalist table. #1 is the alignment, for example: {clrr} would be a 4 column, center left right right table.
+
+% Dynamically sized mid bar.
+\newcommand{\bigmid}{\mathrel{\Big|}}
+
+
+% ---- Colors and Notes ----
+\definecolor{dblue}{RGB}{98, 140, 190}
+\definecolor{dlblue}{RGB}{216, 235, 255}
+\definecolor{dgreen}{RGB}{124, 155, 127}
+\definecolor{dpink}{RGB}{207, 166, 208}
+\definecolor{dyellow}{RGB}{255, 248, 199}
+\definecolor{dgray}{RGB}{46, 49, 49}
+
+% TODO
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\dnote}[1]{\textcolor{dblue}{Dave: #1}}
+
+% URL
+\newcommand{\durl}[1]{\textcolor{dblue}{\underline{\url{#1}}}}
+
+% Circled Numbers
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=0.7pt] (char) {\footnotesize{#1}};}}
+% From: http://tex.stackexchange.com/questions/7032/good-way-to-make-textcircled-numbers
+
+% Under set numbered subset of equation
+\newcommand{\numeq}[3]{\underset{\textcolor{#2}{\circled{#1}}}{\textcolor{#2}{#3}}}
+
+% ---- Abbreviations -----
+\newcommand{\tc}[2]{\textcolor{#1}{#2}}
+\newcommand{\ubr}[1]{\underbrace{#1}}
+\newcommand{\uset}[2]{\underset{#1}{#2}}
+\newcommand{\eps}{\varepsilon}
+
+% Typical limit:
+\newcommand{\nlim}{\underset{n \rightarrow \infty}{\lim}}
+\newcommand{\nsum}{\sum_{i = 1}^n}
+\newcommand{\nprod}{\prod_{i = 1}^n}
+
+% Add an hrule with some space
+\newcommand{\spacerule}{\begin{center}\hdashrule{2cm}{1pt}{1pt}\end{center}}
+
+% Mathcal and Mathbb
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\indic}{\mathbbm{1}}
+\newcommand{\bE}{\mathbb{E}}
+
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+
+% ---- Figures, Boxes, Theorems, Etc. ----
+
+% Basic Image
+\newcommand{\img}[1]{
+\begin{center}
+\includegraphics[\width=0.6\textwidth]{#1}
+\end{center}}
+
+% Put a fancy box around things.
+\newcommand{\dbox}[1]{
+\begin{mdframed}[roundcorner=4pt, backgroundcolor=gray!5]
+\vspace{1mm}
+{#1}
+\end{mdframed}
+}
+
+%  --- PROOFS ---
+
+% Inner environment for Proofs
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  rightline = false,
+  leftmargin=10pt,
+  rightmargin=0pt,
+  innertopmargin=0pt,
+  innerbottommargin=0pt
+]{innerproof}
+
+% Proof Command
+%\newenvironment{dproof}{\begin{proof} \text{\vspace{2mm}} \begin{innerproof}}{\end{innerproof}\end{proof}\vspace{4mm}}
+\newenvironment{dproof}[1][Proof]{\begin{proof}[#1] \text{\vspace{2mm}} \begin{innerproof}}{\end{innerproof}\end{proof}\vspace{4mm}}
+
+
+% Dave Definition
+\newcounter{DaveDefCounter}
+\setcounter{DaveDefCounter}{1}
+
+\newcommand{\ddef}[2]
+{
+\begin{mdframed}[roundcorner=1pt, backgroundcolor=white]
+\vspace{1mm}
+{\bf Definition \theDaveDefCounter} (#1): {\it #2}
+\stepcounter{DaveDefCounter}
+\end{mdframed}
+}
+
+% Block Quote
+\newenvironment{dblockquote}[2]{
+\begin{blockquote}
+#2
+\vspace{-2mm}\hspace{10mm}{#1} \\
+\end{blockquote}}
+
+% Algorithm
+\newenvironment{dalg}[1]
+{\begin{algorithm}\caption{#1}\begin{algorithmic}}
+{\end{algorithmic}\end{algorithm}}
+
+
+
+
+% Dave Table
+\newenvironment{dtable}[1]
+{\begin{figure}[h]
+\centering
+\begin{tabular}{#1}\toprule}
+{\bottomrule
+\end{tabular}
+\end{figure}}
+
+% For numbering the last of an align*
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{assumption}{Assumption}
