@@ -1,0 +1,813 @@
+I arrived today for the best paper award talk.
+
+\subsection{Best Paper Talk: Challenging Assumptions in Learning Disentangled Representations}
+
+Talk by Francesco Olivier Bachem. \\
+
+\dbox{{\bf Central Question:} Can we learn disentangled representations in a purely unsupervised way?}
+
+
+{\bf Context:} Representation learning. Consider a picture of a landscape. Goal of representation learning is to learn a function $f : \mc{X} \ra \Phi$, that translates each item of interest (say, images), into a set of features that capture the important characteristics about the images. \\
+
+Q: What might we want to have in a representation?\\
+
+A: lots of things! One idea, though: {\it disentanglement}. \\
+
+\ddef{Disentanglement}{A single change in a factor should lead to single change in representation.}
+
+Example: Consider geometric shapes placed in a scene, each of a different color/shape/size. If we vary one key aspect (a square's color or size, for instance) of the original image, the representation should change in exactly one way, too. \\
+
+{\bf Focus:} Unsupervised learning od distentangle representations (so, critically, don't get to observe the ground truth factors of variation). \\
+
+\dbox{Contributions:
+\begin{enumerate}
+    \item {\it Theoretical result:} for arbitrary data, unsupervised learning of disentangled representations is impossible.
+    \item {\it Large-Scale Experimental Study:} Can we learn disentangled representations without looking at the labels?
+    
+    $\ra$ Can reconcile and still be effective! The theorem is about {\it worst case} data. Our data likely has the right structure that we can still learn these disentangled representations.
+\end{enumerate}}
+
+{\bf Experiments:} six methods, seven datasets, six metrics, yielding 10,000 trained models and 150,000 scores. \\
+
+$\ra$ Questions to focus on:
+\begin{enumerate}[Q1]
+    \item Which method should be used?
+    \item How do we choose the hyperparameters?
+    \item How to select the best model from a set of trained models?
+\end{enumerate}
+
+Experimental findings:
+\begin{enumerate}
+    \item (Toward answering Q1): Random seed and hyperparameters seem to matter more than the choice of the objective function.
+    \item (Toward answering Q2): Can't identify obvious trends that can be used as a rule-of-thumb for hyperparameter selection (but, transferring across tasks seems to help).
+    $\ra$ Transfer of hyperparameters to different data set and metric does not seem to substantially
+    \item (Toward answering Q3):  Unsupervisd model selection remains a key challenge!
+\end{enumerate}
+
+$\ra$ Implication: good runs from bad hyperparameter settings can easily outperform bad runs from good hyperparameter settings. \\
+
+{\bf Key Takeaways:}
+\begin{itemize}
+    \item Role of inductive biases and supervision should be made explicit
+    \item Concrete practical benefits of disentanglement should be demonstrated
+    \item Sound, reproducible experimental setup with several data sets is crucial.
+    \item Code: \url{github.com/google-research/disentanglement_lib/}. Also released 10,000 pretrained models.
+\end{itemize}
+
+
+\spacerule
+
+
+\subsection{Contributed Talks: Deep RL}
+
+Next we have 5 minute contributed talks. They're very short so I suspect I'll have a harder time transcribing.
+
+\subsubsection{DQN and Time Discretization}
+
+The speaker is Corentin Tallec. \\
+
+{\bf Point:} Time discretization actually matters in deep RL! \\
+
+$\ra$ Usual RL algorithms with high framerate leads to failure. Scalability often limited by algorithms; better hardware, sensers, actuators, can lead to new hyperparameters. \\
+
+Q: Why is near continuous Q-learning failing? \\
+
+A: As $\delta_t$ (time discretization), $Q^\pi(s,a) \ra V^\pi(s)$. As a result, at the limit, $Q$ no longer depends on actions! So we can't perform policy improvement. \\
+
+Q: Can we solve this? \\
+
+A: Yes! Can look at all these quantities, form new algorithms (for more, see the paper!). 
+
+\spacerule
+
+\subsubsection{Nonlinear Distributional Gradient TD Learning}
+
+The speaker is Chao Qu. \\
+ 
+{\bf Background:} Distributional RL considers stochastic nature of long term return, $Z(s,a)$. \\
+
+{\bf This Work:} Consider a distributional counterpart of Gradient TD Learning. Properties:
+\begin{itemize}
+    \item Converges in off policy
+    \item Converges with non-linear function approximation.
+\end{itemize}
+
+$\ra$ New algorithm: Distributionl GTD2. Uses temporal distribution difference instead of the temporal difference from GTD2. 
+
+\begin{theorem}
+Under mild assumptions, Distributional GTD2 converges in the limit.
+\end{theorem}
+
+{\bf Experiments:} Show that D-GTD2 does in fact converge.
+
+\spacerule
+
+\subsubsection{Composing Entropic Policies using Divergence Correction}
+
+Talk by Jonathun Hunt. \\
+
+Q: How do people solve complex motor control tasks such as juggling and unicycling at the same time? \\
+
+A: Well, perhaps we tend to learn each of them independently, and then merging them together. \\
+
+{\bf Note:} not option like! We don't do A then B, we do a new $A \circ B$ task. \\
+
+{\bf Problem:} Given training tasks $T_1$ and $T_2$, we want to solve some merged task $T_b = T_1 + T_2$. \\
+
+Prior work: generalized policy improvement~\cite{barreto} \dnote{CITE}, and compositional optimism (Haarnoja 2018 \dnote{CITE}). \\
+
+Adapt existing ideas to this transfer setting:
+\begin{enumerate}
+    \item Successor Features
+    \item Generalized Policy Improvement
+    \item Divergence correction
+\end{enumerate}
+
+$\ra$ New algorithm for composing tasks in continuous action spaces. \\
+
+\spacerule
+
+\subsubsection{TibGM: A Graphical Model Approach for RL}
+
+The speaker is Tameem Adel. \\
+
+{\bf Genesis:} Graphical modeling approach for 1) increasing transferability generalization, and 2) adopt precise objectives and clear interpretations. \\
+
+$\ra$ Do this by proposing an information theoretic objective aiming at maximizing ``local" reward and a more global measure (related to transfer). \\
+
+{\bf Contributions:}
+\begin{itemize}
+    \item A graphical model based on
+    \item Prove a correspondence between new objective and typical reward maximization objective.
+    \item An information theoretic pretraining procedure focusing on exploration.
+    \item State of the art results on 16 benchmark tasks.
+\end{itemize}
+
+\spacerule
+
+\subsubsection{Multi-Agent Adversarial IRL}
+
+The talk is by Lantao Yu. \\
+
+{\bf Motivation:} Performance of RL agent relies on quality of reward function. \\
+
+$\ra$ But, it can be hard to design the right reward function! \\
+
+One solution: learn a reward function from expert demonstrations (as in imitation learning). \\
+
+Q: But why shoul we care about reward learning? \\
+
+A: Well, some advantages: 1) scientific inquiry (understanding animal behavior), 2) reward function is the most succinct, robust, and transferable description of a task, 3) can be helpful if we want to reoptimize policies in new environments.  \\
+
+$\ra$ These properties are even more desirable in multi-agent setting! \\
+
+\ddef{Single-agent IRL}{Find a reward function that explains expert behavior}
+
+But: intractable! Too many reward functions explain the same behavior. \\
+
+Generalize this setting to multi-agent using Markov Games:
+
+\ddef{Markov Game}{A multi-agent generalization of MDPs~\cite{littman1994markov}}
+
+Solution concept to a Markov Game is a Nash Equilibrium:
+\ddef{Nash Equilibrium}{When no agent can achieve higher expected reward by changing its own policy.}
+
+Method: introduced Logistic Stochastic Best Response Equilibrium (LSBRE). Optimize the pseudolikelihood objective. \\
+
+{\bf Experiments:} Policy imitation performance. New method achieves state of the art in both cooperative/communicative and competitive tasks. \\
+
+{\bf Summary:} New solution concept for Markov games, gives rise to new measures of interest. Propose the first multi-agent MaxEnt IRL framework.
+
+\spacerule
+
+\subsubsection{Policy Consolidation for Continual RL}
+
+{\bf Motivation:} Catastrophic forgetting in neural nets! Nets tend to forget information from prior tasks. \\
+
+$\ra$ Even happens in RL during continual learning, since distribution of seen states change over time as exploration/policy changes. \\
+
+Agents should cope with: dicsrete and continuous changes to data distribution! \\
+
+{\bf Contribiution:} Policy Consolidation agent. A bunch of agents are trained (via PPO) and connected via a KL distillation loss. \\
+
+$\ra$ Final policy stored is the result of distilling all other policies trained. Ensures it doesn't deviate too much from prior performance. \\
+
+{\bf Experiments:} Alternating task to explore effect of forgetting. Find their algorithm outperforms all other variants of PPO. \\
+
+{\bf Future Work:} 1) Look at how to prioritize important memories during training, and 2) Adapt for off-policy learning. \\
+
+\subsubsection{Off Policy Evaluation Deep RL w/o Exploration}
+
+Consider: same off-policy algorithm (DDPG) used on same dataset with two differen approaches (orange and blue). \\
+
+Agents: 1) Orange---interacts with the environment (standard rl loop), 2) Blue---just uses data from environment but doesn't actually interact! Yet, their performance is different \\
+
+Q: Why would these be any different? \\
+
+A: Extrapolation error: $Q(s,a,) \la r = \gamma Q(s',a')$, where $(s,a,r,s')$ come from the dataset. Basically, you might have a bad target $Q(s',a')$.\\
+
+\ddef{Extrapolation error}{Attempting to evaluate $\pi$ without sufficient acccess to the $(s,a)$ pairs $\pi$ visits.}
+
+Solution: batch-constrainted RL: only choose $\pi$ so that it selects $(s,a)$ pairs that are  in the dataset and maximizes performance. \\
+
+$\ra$ New algorithm: Batch-constrained Deep Q Learning (BCQ). \\
+\begin{enumerate}
+    \item Imitate dataset via generative model
+    \item $\pi(s) = \argmax_a Q(s,a)$
+    \item Throw in some extra magic
+\end{enumerate}
+
+Finds that BCQ greatly outperforms some existing methods (DDPG), and is quite stable. \\
+
+\spacerule
+
+\subsubsection{Random Expert Distillation}
+
+Talk by Ruohan Wang \\
+
+\ddef{Imitation Learning}{Policy learning from a limited set of expert demonstrations}
+
+Useful because: intuitive and efficient skill transfer, and can capture style/preferences of individual demonstrators. \\
+
+$\ra$ Recent framework for IRL: Generative Adversarial Imitation Learning (GAIL). \\
+
+But, optimization challenges; 1) training instability, and 2) sample inefficiency. \\
+
+{\bf Main Contribution:} Random Expert Distillation (RED). Framework fir imitation learning using the estimated support of the expert policy as reward. \\
+
+Optimize a new trajectory based loss based on a new reward function, and prove it approximates the right thing in the limit. \\
+
+{\bf Experiment 1:} In MuJoCo, find high training stability and good sample efficiency compared to other approaches like GAIL. \\
+
+{\bf Experiment 2:} Autonomous driving tasks with human actions as training data. Agent learns to follow the preferences of the trainer (speed, lane preference, and so on).
+
+\spacerule
+
+\subsubsection{Revisiting the Softmax Bellman Operator}
+
+The speaker is Zhao Song. \\
+
+Recall that the Bellman Operator is a contraction. \\
+
+$\ra$ Mellowmax operator~\cite{asadi}\dnote{CITE} is also a contraction:
+\[
+max_{a'} Q(s',a') \ra \sum_{a'} \frac{\exp \tau Q}{\sum_b \exp \tau Q(s',b)}
+\]
+Q: Is softmax really as bad as sour milk? (credit to Ron Parr). \\
+
+{\bf Idea:} combing the max function in the target network of DDQN with softmax. \\
+
+$\ra$ Gives rise to the SQDN, achieves higher scores than DQN on most Atari games. \\
+
+Thus: analysis of softmax is warranted! \\
+
+\begin{theorem}
+Analysis showing: good performance, guaranteed convergence, smaller error, reduction bound, and overestimation error monotically increases w.r.t. $\tau$ (inverse temperature).
+\end{theorem}
+
+\spacerule
+\subsection{Contributed Talks: RL Theory}
+
+More RL!
+
+\subsubsection{Distributional RL for Efficient Exploration}
+
+Talk by Hengshuai Yao. \\
+
+{\bf Point:} Lots of sources of uncertainty in RL---estimation (in finite data regime), but also other factors like environmental stochasticity, opponents' play in game, and so on. \\
+
+$\ra$ Exploration strategy based on uncertainty: {\it optimism under uncertainty}. In multi-armed bandits, choose arm according to:
+\[
+a = \argmax_k \hat{\mu}_k + c_k,
+\]
+where $\hat{\mu}_k$ is estimated mean payoff, and $c_k$ is some measure of uncertainty in this estimate (UCB like). \\
+
+But! Using naive exploration bonus doesn't always work: favors actions with high intrinsic uncertainty forever. \\
+
+{\bf New Idea:} To use optimism in face of uncertainty, perform decaying schedule of the weight of uncertainty. This ensures that as more evidence is gathered, the agent starts to exploit more.
+\spacerule
+
+\subsubsection{Optimistic Policy Optimization via Importance Sampling}
+
+Talk by Matteo Papini. \\
+
+{\bf Problem:} Policy Optimization.
+\begin{itemize}
+    \item Parameter space $\Theta \subseteq \mathbb{R}^d$
+    \item Parapmetric policy for each $\theta \in \Theta$
+    \item Each policy induces a distr. over trajectories, with $R(\tau)$ the return of the trajectory.
+    \item Goal is to find he parameters that maximize the expected return:
+    \[
+    \max_{\theta \in \Theta} \bE[R(p_\tau \mid \theta)].
+    \]
+\end{itemize}
+
+Challenge, though: exploration here is hard! \\
+
+Q: What if we think about this as a multi-armed bandit? \\
+Then:
+\begin{itemize}
+    \item Arms: parameters $\theta$
+    \item Payoff: expected return $J(\theta)$
+    \item Continuous Multi-Armed Bandit, effectively.
+    \item Take advantage of arm correlation through trajectory distributions.
+    \item Use Important Sampling to update return of a candidate policy.
+\end{itemize}
+
+{\bf Main result:} new algorithm ``\textsc{Optimist}", enjoys sublinear regret:
+\[
+Regret(T) - \tilde{O}(\sqrt{dT}).
+\]
+
+Code: \url{github.com/wolfLo/optimist} 
+
+\spacerule
+
+\subsubsection{Neural Logic RL}
+
+The talk is by Shan Luo. \\
+
+Two main challenges of deep RL: 1) How can we generalize learned policies from one task to another?, and 2) How can we interpret these learned policies? \\
+
+{\bf Approach:} use background knowledge to learn concepts and relations, like \texttt{grandfather(x,y)}. To do so, use {\it differentiable inductive logic programming}.
+
+$\ra$ Idea: learn logic rules with policy gradient (a new architecture, DILP, trained with REINFORCE). \\
+
+{\bf Experiments:} For many settings, achieve high reward compared to MLP agent (baseline). \\
+
+\spacerule
+
+\subsubsection{Learning to Collaborate in MDPs}
+
+The talk is by Goran Radanovic. \\
+
+{\bf Motivation:} Human-AI collaboration---consider a helper AI assisting a person in solving some task. \\
+
+$\ra$ The agents might share a common goal, but view the different in some way, or have different behavioral differences. \\
+
+Formal model: two-agent MDP, where agents have {\it commitments}. \\
+
+$\ra$ Goal is to design a learning algorithm (for the first, non-human AI) that achieves sublinear regret. \\
+
+Challenge: from the perspective of A1, the world looks like a non-stationary MDP due to the presence of A2 (the person). \\
+
+{\bf Main Contribution:} Experts with Double Recency Bias, a new algorithm for this setting, based on the recency bias. 
+
+\begin{theorem}
+(Main Result): The regret of this algorithm decays as $O\left(T^{\frac{1}{4}}\right)$.
+\end{theorem}
+
+\spacerule
+
+\subsubsection{Predictor-Corrector Policy Optimization}
+
+Talk by Ching-An Cheng. \\
+
+{\bf Problem:} Episodic policy optimization. So, agent is trying to optimize some policy $\pi(a \mid s)$, that achieves high return. \\
+
+$\ra$ One goal: sample efficiency. We should spend time on planning/thinking before any real interactions. \\
+
+Q: Why should we use models? \\
+
+A: Can summarize past experience, can be more sample-efficient, and can optimize a policy efficiently without real world interactions. \\
+
+Q: Why don't use models? \\
+
+A: Well, models are always inexact! Weaknesses of model can be exploited in policy optimization. \\
+
+Q: Can we reconcile these two camps? \\
+
+A: Sure! This paper: PicColo (see talk title). A meta algorithm based on the idea that: ``shoud not fully trust a model but leverage only the correct part" \\
+
+$\ra$ How can this be achieved?
+\begin{itemize}
+    \item Frame policy optimization as predictable online learning (POLL
+    \item Design a reduction based algorithm for POL to reuse known algorithms.
+    \item When translated back this gives a meta-algorithm for policy optimization.
+\end{itemize}
+
+Online learning: consider a learner and an opponent, with the learning chooses a decision $\pi_n \in \Pi$ every so often. Opponent chooses a loss function to minimize performance, rinse and repeat. \\
+
+$\ra$ Most common performance measure is {\it regret}. {\bf Idea:} Define policy optimization as an online learning process. \\
+
+$\ra$ Algorithmically: can try typical no-regret algorithms (mirror descent), but not optimal! Want to learn faster. \\
+
+Idea: view predictability as the ability to predict future gradients. Introduce the following model:
+
+\ddef{Predictive model}{A function that estimates the {\it gradient of future loss}
+\[
+\Phi_n(\pi) \approx \nabla \ell_n(\pi)
+\]}
+
+Now, develop an algorithm based on this predictability model. \\
+
+$\ra$ Want a reduction from predictability to online learning. This is PicColo! \\
+
+Suppose we have a predictable learning problem, idea is to turn it into an adversarial one. So:
+\[
+\ell_n(\cdot) = \hat{\ell}_n(\cdot) + \Delta_n(\cdot),
+\]
+which is a combination of prediction loss (the first term) and error (the second loss). \dnote{I didn't catch what the second source of error is}
+
+PicColO: two steps---1) Prediction step ($\pi_n = \hat{\pi}_n - \eta_{n}\hat{g}_n$, and 2) correction step---$\hat{\pi}_{n+1} = \eta_n(g_n - \hat{g}_n$, with $g$ the return.\\
+
+{\bf Experiments:} Compare PiColo with a variety of other algorithms on MuJoCo tasks. \\
+
+{\bf Summary:}
+\begin{itemize}
+    \item PicColO can change a model-free algorithm to be faster but without the bias.
+    \item Predictive model can be viewed as a unified interface for injecting prior
+    \item As PicCoLO is degiend for general predictable online learning, we expect applications to other problems and domains.
+\end{itemize}
+
+
+\spacerule
+
+\subsubsection{Learning a Prior over Intent via Meta IRL}
+
+Talk by Kelvin Xu. \\
+
+{\bf Motivation:} we often assume we have a well specified reward function! \\
+
+Q: How can an agent infer rewards from one or a few demonstrations? \\
+
+$\ra$ This work! Use demonstrations from previous tasks to induce tasks priors that can be used in new tasks. \\
+
+{\bf Main idea:} use prior task information to accelerate inverse RL. \\
+
+$\ra$ Builds on MAML (see meta-learning tutorial!). \\
+
+{\bf Experiment:} Sprite world environment, and 2) First person navigation task. In both cases, learn task priors from meta-training task, use to learn quickly in test tasks. \\
+
+$\ra$ Results: performs very well even only given a small number of demonstrations. \\
+
+\spacerule
+
+\subsubsection{DeepMDP: Learning Late Space Models for RL}
+
+Talk by Carles Gelada. \\
+
+{\bf Goal:} Find simple representations for RL. \\
+
+Approach: learn a latent space model $\bar{M} = \langlage \bar{\mc{S}}, \bar{\mc{A}}, \bar{R}, \bar{T} \rangle$. Based on two losses;
+\begin{align}
+    &\bar{R}(s,a) \approx R(s,a), \forall_{s,a} \\
+    \bar{T}(s' \mid s,a) \approx T(s' \mid s,a), \forall_{s,a,s'}.
+\end{align}
+
+Using these losses, ensure that $\phi$ is a good representation in the sense that it only throws out bad/useless policies. \\
+
+{\bf Experiments 1:} Donut world. Image of a circle. Embedding function ends up finding a similar representation. \\
+
+{\bf Experiments 2:} Atari w/ C51, find improvement over baselines.
+
+\spacerule
+
+\subsubsection{Importance Sampling Policy Evaluation}
+
+Talk by Josiah Hanna. \\
+
+Note: lots of recent empirical RL success! \\
+
+But: for RL to be successful, we must ask: ``How can RL agents get the most from small amounts of experience?". \\
+
+{\bf Core Contribution:} Study important sampling for the RL sub-problem of policy evaluation. More specifically: replace the denominator of importance sampling with an estimate, and prove that this is justified empirically and theoretically. \\
+
+Typical importance sampling in RL:
+\[
+OIS(\pi, D) = \frac{1}{m} \nsum \Pi_{t=0}^L \frac{\pi(a_t \mid s_t)}{\pi_D(a_t \mid s_t} \sum_{t=0}^L \gamma^t R_t
+\]
+They replace the denominator with an MLE {\it estimate} of the behavioral policy's performance:
+\[
+New-IS(\pi, D) = \frac{1}{m} \nsum \Pi_{t=0}^L \frac{\pi(a_t \mid s_t)}{\hat{\pi}_D(a_t \mid s_t} \sum_{t=0}^L \gamma^t R_t
+\]
+Paper provides theory and experiments showing this is a good thing to do. 
+
+\spacerule
+
+\subsection{Learning from a Learner}
+
+Talk by Alexis Jacq. \\
+
+{\bf Goal:} Want to learn an optimal behaviour by watching others learning. \\
+
+Assume: learning is optimizing a regularized objective:
+\[
+J(\pi) = \bE_\pi \left[ \sum_{t} \gamma^t(r(s_t,a_t) + \alpha H(\pi(\cdot \mid s_t))\right].
+\]
+The value of a state action couple is given by the fixed point of the regularized bellman equation. Moreover, the softmax is an improvement of the policy (see \citet{haarnoja2018soft}). \\
+
+{\bf Experiments:} on MujoCo, find improvement.
+
+\spacerule
+
+\subsection{Separating Value Functions Across Time-Scales}
+
+Talk by Joshua Romoff. \\
+
+Multi-step returns:
+\[
+G_t^k = \sum_{i=0}^{k-1} \gamma^i r_{t+1} + \gamma^k V(s_{t+k}).
+\]
+Can choose $k$ to trade-off between bias-variance. Or, the $\lambda$ returns:
+\[
+G_t^\almbda := (1-\lambda) \sum_{k=1}^\infty \lambda^{k-1} G_t^k.
+\]
+Many tasks are {\it discounted:} when $\gamma \ra 1$, training $V_\gamma$ is difficult. \\
+
+Q: Why use discount factor?\\
+
+A: Well, it makes the problem simpler. Only ever thinking about the next few rewards, so agents can learn to make decisions more easily.\\
+
+$\ra$ But, add a lot of bias! Sometimes we don't really care about early rewards more. \\
+
+{\bf Take a step back:} what would the ideal RL agent do? It would learn to do well quickly! \\
+
+Ideally: want to 1) learn with a discount factor that is large but, 2) built on top of methods that are computationally and sample efficient. \\
+
+{\bf Solution:} define a sequence of $\lambda$s:
+\[
+\Delta ;= \{\gamma_0, \gamma_1, \ldots, \gamma_Z\},
+\]
+where $\gamma_i \leq \gamma_{i+1}, \forall_i$. \\
+
+Then, form a sequence of Bellman Equations using this sequence of $\gamma$s:
+\begin{align}
+W_0 &: r_t + \gamma_0 W_0(s_{t+1}) \\
+W_{i > 0} &: (\gamma_i - \gamma_{i-1})V_{\gamma_{i-1}}(s_{t+1}) + \gamma_i W_i(s_{t+1}).
+\end{align}
+Algorithm: TD$(\Delta)$, equivalent to standard $TD(\lambda)$. \\
+
+Analysis: Under some conditions, equivalent to standard TD$(\lambda)$.
+    
+    $\ra$ So, why would you do this new, sequenced thing?
+    
+    $\ra$ Well, equivalent when using linear function approximation. And: 1) Same learning rates for each $W$, and 2) Same $k$-step, $\gamma$, and $\lambda$ for each $W$.
+    
+    $\ra$ (But of course, don't have to set these parameters the same way). \\
+    
+Can extend TD($\Delta$) to Deep RL: 1) Share network multiple outputs, 2) Train $W$s as described, 3) Use the same of $W$s instead of $V$s \\
+
+{\bf Experiments:} Tested in Atari, contrast TD($\Delta)$ with PPO and PPO+ (PPO but with additional parameters). \\
+
+$\ra$ Further explore what $TD(\Delta)$ learns by plotting the value function. \\
+
+Things they didn't try (but we should!):
+\begin{itemize}
+    \item Adding {\it more} $W$s.
+    \item Q-learning extension (everything they tried was on policy).
+    \item Model architecture for the value functions: could explore using fewer parameters, and so on.
+    \item Distributed variant.
+\end{itemize}
+
+{\bf Summary:}
+\begin{enumerate}
+    \item Deompose the value function based off of $\gamma$
+    \item Train with Bellman-like equations
+    \item Improves sample efficiency
+\end{enumerate}
+
+\spacerule
+\subsubsection{Learning Action Representations in RL}
+
+Talk by Yash Chandak. \\
+
+{\bf Problem:} consider RL problems with {\it thousands} of possible actions! (applications might be a medical treatment, advertisement, or portfolio management). \\
+
+$\ra$ Might capture this by learning options~\cite{sutton1999between}, but usually leads to learning {\it too many options}. \\
+
+Q: How can we learn good action representations, but not learn too many? \\
+
+{\bf Key Insights:}
+\begin{enumerate}
+    \item Actions are not independent discrete quantities
+    \item There is a low dimensional structure underlying their behavior.
+    \item This structure can be learned independent of the reward.
+    
+    \item Thus, instead of raw actions, agent can act in this new space of bejavior, behavior can be generalized to similar actions. 
+\end{enumerate}
+
+New Algorithm: 1) Supervised learning of action representations, and 2) Learn internal policy of these representations using policy gradient. \\
+
+{\bf Experiments:} Applied algorithm to a variety of domains with rich action spaces (recommendation in photoshop, for instance), find consistently good performance. \\
+
+\spacerule
+
+\subsubsection{Bayesian Counterfactual Risk Minimization}
+
+Talk by Ben London. \\
+
+{\bf Problem:} Learning from Logged Data to recommend music. \\
+
+Challenges:
+\begin{enumerate}
+    \item Feedback is bandit feedback, so only learn from chosen actions
+    \item Data is biased based on chosen logging policy.
+\end{enumerate}
+
+$\ra$ One way to counteract this bias is to use inverse propensity scoring:
+\[
+\argmin_{\pi} \frac{1}{n} \nsum -r_i \frac{\pi(a_i \mid x_i)}{p_i}.
+\]
+Can also use {\it variance regularization}, giving rise to the Counterfactual Risk Minimization (CRM) principle;
+\[
+\argmin_{\pi} \frac{1}{n} \nsum -r_i \frac{\pi(a_i \mid x_i)}{p_i} + \lambda \sqrt{Var(\pi, S)}
+\]
+$\ra$ Motivated by PAC analysis, ensures low generalization error. \\
+
+{\bf This Work:} Bayesian view of CRM (motivated by PAC-Bayes analysis). Yields a nice generalization error bound. \\
+
+$\ra$ Application to mixed logits. \\
+
+\spacerule
+
+\subsubsection{Per-Decision Option Counting}
+
+Talk by Anna Haratunyan. \\
+
+{\bf Motivation:} Agents that reason over long temporal horizons. But: {\it horizon depends on choice of $\gamma$}. \\
+
+Q: Perhaps we can do this with options~\cite{sutton1999between}? \\
+
+A: But, doesn't really handle different horizons. \\
+
+\dbox{{\bf Main contribution:} generalize the options framework to allow for per-option discounting.}
+
+$\ra$ That is, add a per-decision option discount, $(\gamma_r, \gamma_p)$. \\
+
+In this framework, they identify a bias-variance trade-off captured by these new discounts. \\
+
+\spacerule
+
+\subsubsection{Problem Dependent Regret Bounds in RL}
+
+Talk by Andrea Zanette. \\
+
+{\bf Focus:} Exploration in episodic, tabular RL. \\
+
+$\ra$ State of the art regret bounds:
+\begin{itemize}
+    \item No intelligent exploration $\tilde{O}(T)$
+    \item Efficient Expliration; $\tilde{O}(H\sqrt{SAT})$
+    \item Lower Bound: $\tilde{O}(\sqrt{HSAT})$
+    \item Below the Lower Bound: problem dependent!
+\end{itemize}
+
+Main result (requires variance of value, and scaling of reward)
+\begin{theorem}
+With high probability, can achieve regret of:
+\[
+\tilde{O}(\sqrt{\mathbb{Q}^*SAT}),
+\]
+where $\mathbb{Q}^*$ is a problem dependent term.
+\end{theorem}
+
+Answers an open conjecture from Jiang and Agarwal 2018 (COLT): any algorithm must suffer $H$ regret in goal-based MDPs. \\
+
+$\ra$ Also explore effect of stochasticity on regret. \\
+
+\spacerule
+
+\subsubsection{A Theory of Regularized MDPs}
+
+Talk by Matthieu Geist. \\
+
+{\bf Motivation:} Many deep RL algorithms make use of regularization, but no general theory of how to regularize in RL. \\
+
+$\ra$ This work: generalizes regularization in RL in two ways:
+\begin{enumerate}
+    \item Larger class of regularizers
+    \item General modified policy iteration scheme.
+\end{enumerate}
+
+LEt $\Omega : \Delta_A \ra \mathbb{R}$ be a strongly convex function. The convex conjugate is a smoothed maximum:
+\[
+\forall_{q_s} \in \mathbb{R}^A, \Omega^*(q_s) = \max_{\pi_s \in \Delta_A} (\pi_s, q_s) - \Omega(\pi_s).
+\]
+
+Thus, we can regularize the Bellman Equation:
+\begin{equation}
+    T_{\pi,\Omega}[V] = T_\pi[V] - \Omega(V).
+\end{equation}
+
+The regularized Bellman Operators satisfy the same properties as the original ones: 1) $T_{\pi, \Omega}$ is affine, 2) Monotonicity, distributitivity, and $\gamma$-contraction. \\
+
+$\ra$ Introduce a new algorithmic scheme, regularized policy improvement, and prove the following result:
+
+\begin{theorem}
+After $k$ iterations of reg-MPI, the loss is bounded.
+\end{theorem}
+
+$\ra$ Can also use this theory to characterize existing approaches to regularization in RL (like TRPO, DPP, and so on). \\
+
+{\bf Summary;}
+\begin{itemize}
+    \item Bridges some gaps between dynamic programming and optimization
+    \item Introduced temporal consistency equations, as with entropy
+    \item Can generalized existing approaches to regularization, such as regularized policy gradient.
+\end{itemize}
+
+
+\spacerule
+
+\subsubsection{Discovering Options for Exploration by Minimizing Cover Time}
+
+\dnote{Now, our paper!} The talk is by Yuu Jinnai. \\
+
+{\bf Goal:} Choose options that are effective for exploration. \\
+
+Contribution:
+\begin{enumerate}
+    \item Introduce an objective function for exploration called {\it cover time} (see below).
+    \item Algorithm for option discovery that minimizes an upper bound on the cover time.
+    
+    $\ra$ Computes the {\it Fiedler} vector based on the graph induced by the graph of the MDP, uses it to minimize the cover time.
+\end{enumerate}
+
+\ddef{Cover Time}{The expected number of steps needed to visit every state.}
+
+\begin{theorem}
+The upper bound on the cover time is improved;
+\[
+\bE[C(G')] \leq \frac{n^2 \ln n}{\lambda_2 C(G')}
+\]
+\end{theorem}
+
+Performed empirical comparison contrasting learning performance with different kinds of options. \\
+
+\spacerule
+
+\subsubsection{Policy Certificates: Towards Accountable RL}
+Talk by Cristoph Dann. \\
+
+Key contribution: new algorithm for episodic tabular MDPs with:
+\begin{theorem}
+PAC Bound;
+\[
+\tilde{O}\left(\frac{SAH^2}{\eps^2}\right),
+\]
+and a matching regret bound.
+\end{theorem}
+
+Motivation, though: {\it accountability}, not necessarily sample efficiency. \\
+
+Q: How good will my treatment be? Is it the best possible? \\
+$\ra$ What kinds of methods can answer these kinds of questions? 
+
+{\bf Main IDea:} Introduce {\it policy certificates} to add accountability.
+\ddef{Policy Certificate}{Confidence interval around optimal and algorithm's performance}
+
+$\ra$ Natural extension of model-based optimistic algorithms. \\
+
+Challenge: $Q^\pi$ is random, so it can be hard to compute confidence intervals for it. But! From optimism, we know $Q^\pi \ra Q^*$ at a known rate. So, we can bound this quantity. \\
+
+Two main benefits:
+\begin{enumerate}
+    \item More accountable algorithms through accurate policy certificates.
+    \item Better exploration bonuses yield minimiax-optimal PAC and regret bounds.
+\end{enumerate}
+
+\spacerule
+
+\subsubsection{Action Robust RL}
+
+
+Talk by Chen Tessler. \\
+
+{\bf Goal:} Achieve robustness in RL/MDPs. Consider cases of abrupt disruption, highly stochastic problems, and so on. \\
+
+$\ra$ Thus, study robust MDPs where;
+\[
+\pi_\alpha(\pi, \pi^') = \begin{cases}
+\pi& w.p. 1-\alpha \\
+\pi^'& w.p. \alpha
+\end{cases}
+\]
+
+Introduce an algorithm as a a player in a two player, adversarial game. Guaranteed to converge to nash. \\
+
+$\ra$ Propose a Deep RL variant based on this robust MDP algorithm, experiment on MuJoCo. 
+
+\spacerule
+
+\subsubsection{The Value Function Polytope}
+
+Talk by Robert Dadashi. \\
+
+{\bf Central Question:} Can we characterize the geoemtry of the space of possible value functions for a given MDP? \\
+
+Why ask this?
+\begin{itemize}
+    \item Relationship between policy space and value function space
+    \item Better understand the dynamics of existing algorithms
+    \item New formalism of representation learning in RL.
+\end{itemize}
+
+Main Result: what is the geometry of the space of value functions of a given MDP?
+\begin{theorem}
+The ensemble of value functions are (possibly non-convex) value polytopes.
+\end{theorem}
+
+Building blocks: 1) the line theorem (value functions of mixtures of similar policies describe a line in value function space), and 2) boundary theorem (\dnote{missed explanation}).\\
+
+\dnote{And that's a wrap for Tuesday!}
