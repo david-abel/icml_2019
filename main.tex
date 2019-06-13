@@ -2,7 +2,7 @@
 
 % --- Packages ---
 \usepackage[usenames, dvipsnames]{color} % Cool colors
-\usepackage{enumerate, amsmath, amsthm, amssymb, mathrsfs, algorithm, algpseudocode, fontawesome, pifont, subfig, fullpage, csquotes, dashrule, tikz, bbm, booktabs, bm, hyperref}
+\usepackage{enumerate, amsmath, amsthm, amssymb, mathrsfs, algorithm, algpseudocode, fontawesome, pifont, subfig, fullpage, csquotes, dashrule, tikz, bbm, booktabs, bm, hyperref, wasysym}
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage[numbers]{natbib}
 \usepackage[normalem]{ulem}
@@ -10,6 +10,19 @@
 % --- Misc. ---
 \hbadness=10000 % No "underfull hbox" messages.
 \setlength{\parindent}{0pt} % Removes all indentation.
+
+
+% Nice coloring of references.
+\usepackage{hyperref}
+\hypersetup{               
+    colorlinks=true,               
+    breaklinks=true,               
+    urlcolor= dblue,                
+    linkcolor= dred,                
+    linkbordercolor=dred,
+    citecolor=dblue,
+    citebordercolor=dblue,
+}
 
 % -- Commands --
 \input{commands}

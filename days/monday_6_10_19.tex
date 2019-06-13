@@ -294,7 +294,7 @@ Then, adapt and find some nearby parameters, $\phi^*$:
 \]
 
 
-{\bf Key Idea;} Our training procedure is based on a simple machine learning principle: test and train conditions much match" (from Vinyals et al. Matching Networks for One Shot learning). \\
+{\bf Key Idea:} Our training procedure is based on a simple machine learning principle: test and train conditions much match" (from Vinyals et al. Matching Networks for One Shot learning). \\
 
 Thus, for our above notion of meta-learning to make sense, we also need to hang on to tests {\it for each training} task. See Figure. \dnote{ADD FIG}. \\
 
@@ -381,7 +381,7 @@ where $\phi_i = \theta - \alpha \nabla_\theta L(\theta, D_i^{\tx{train}})$.
 \end{figure}
 
 
-{\bf Experiments;} Compare MAML with black-box approaches (SMAIL, MetaNetworks). Tend to find higher performance in domain adaption/extrapolated tasks. \\
+{\bf Experiments:} Compare MAML with black-box approaches (SMAIL, MetaNetworks). Tend to find higher performance in domain adaption/extrapolated tasks. \\
 $\ra$ Task was to shear digits in the Omnioglot dataset by some degree and inspect decay on performance. MAML rarely decays in performance. \\
 
 Q: Does this learned structure come at a cost? \\

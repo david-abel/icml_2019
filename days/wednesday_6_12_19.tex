@@ -1,0 +1,556 @@
+\dnote{I took the morning off to attend to some other work}
+
+The day (afternoon, really) begins with contribued talks on multitask/lifelong learning.
+
+\subsection{Contribued Talks: Multitask and Lifelong Learning}
+
+Most talks will again be five minutes, with a few being 20. 
+
+\subsubsection{Domain Agnostic Learning with Disentangled Representations~\cite{peng2019domain}}
+
+Talk by Xingchao Peng. \\
+
+{\bf Idea:} Carry out supervised learning when the domain shifts. \\
+$\ra$ Well motivated by applications (lots of cases where training data differs from true task).
+
+\ddef{Domain Adaptation}{Train on some source domain, $P_S(X_S,Y_S)$, with lots of labeled data, then test of target $P_T(X_T,Y_T)$.}
+
+Example: Performing image recognition on canonical, full color images, then translating to recognition on {\it sketches}, some of which might be black and white. \\
+
+Lots of related work~\cite{saito2018maximum,ganin2016domain,tzeng2017adversarial}. \\
+
+{\bf New Approach:} Deep Adversarial Disentangled Autoencoder (DADA).
+\begin{itemize}
+    \item Class disentanglement: disentangle to class-irrelevant and domain-invariant features
+    \item Domain disentanglement: Disentangle to domain-specific and domain invariant features.
+\end{itemize}
+
+Example: class-invariance vs. domain invariance.
+
+$\ra$ Domain invariance; given two images, one from a real car, one of a painting of a car $\ra$ pass both into some neural net yields some features. In principle these features should be {\it domain-invariant} since they're found in both of these car renditions. \\
+
+$\ra$ Class invariance: take a look at the backgrounds of the cars, this would yield the {\it class invariant} features, since they identify different classes. \\
+
+Class disentanglement: train class identifier with the following loss:
+\[
+L_{ce} = \bE_{x,y} \left[\sum_{k=1}^K \indic\{k=y\} \log C(f_D)\right].
+\]
+Create a similar loss (and piece of the architecture) for domain disentanglement;
+\[
+L_{vae} = ||\hat{f}_G - f_G||^2 + \KL{q(z \mid f_g)}{p(z)}.
+\]
+{\bf Experiments:} Three benchmarks: 1) 5 digit datasets, 2) Office domains, 3) DomainNet, each of which contains a variety of domains and categories. \\
+
+$\ra$ Finding: new model (DAD) improves performance over SOTA by 6\% on average across these datasets.
+
+\spacerule
+
+
+\subsubsection{Composing Value Functions in RL}
+
+\dbox{{\bf Central Question:} Can we blence value functions together from different tasks to solve interesting combinations of the tasks without further learning?}
+
+In general, consider skills $Q_1$ and $Q_2$. Typically, we see $Q_1 \oplus Q_2 = \frownie$. \\
+
+This work: considers entropy regularized RL:
+\[
+r_{ent}(r,s) = r(s,a) - r \KL{\pi_s}{\bar{\pi}_s}.
+\]
+
+
+With entropy regularized RL we show that: $Q_1 \oplus Q_2 = \smile$ \\
+
+Idea: OR task composition: can optimally compose $Q(\square)$ and $Q(\circ)$ to solve the task of collecting $\square$ OR $\circ$. \\
+
+Corollary: in the limit, prov that $Q(\circ OR \square) = \max\{Q(\circ), Q(\square)\}$. \\
+
+{\bf Experiment:} Agents should pick up some object, train in tasks where they have to pick up just one type, then test in case where either is OK. \\
+
+Summary:
+\begin{enumerate}
+    \item Can do zero shot composition to provably find solution to OR tasks.
+    \item Works well in experiments!
+\end{enumerate}
+
+\spacerule
+\subsubsection{CAVIA: Fast Context Adaptation via Meta Learning}
+
+Talk by Luisa Zintgraf. \\
+
+{\bf Idea:} Meta-learning for fast adaptation---learn how to map $x$ to $y$ on new tasks, fast and with little data. \\
+
+$\ra$ Earl approach: MAML (see meta-learning tutorial). \\
+
+{\bf New Algorithm:} CAVIA: Fast Context Adaptation via Meta Learning--- 1) less prone to overfitting and 2) interpretable. \\
+
+$\ra$ Many tasks and currrent benchmarks only require task identification. many parameters and few data points can lead to {\it overfitting}. \\
+
+{\bf Experiment 1:} sine curve experiments. Task is defined by learning amplitude and phase. MAML require 1500 parameters, whereas CAVIA requires only 2 context parameters. \\
+
+$\ra$ Context parameters are interpretable, and can be reused across tasks. \\
+
+{\bf Experiment 2:} mini-imagenet experimnents. As the network becomes more complex, MAML requires 30000 parameters, hwereas cAVIA only requires a few hundred. \\
+
+\spacerule
+
+\subsubsection{Gradient Based Meta-Learning: A simple but effective approach}
+
+Talk by Mikhail Khodak. \\
+
+Q1: What kinds of task-relationships can meta-learning algorithms exploit?  \\
+
+Q2: Are we restrictinv outsrleves by using such simple methods ? \\
+
+Q3: How does meta-learning relate to classical multi-task methods? \\
+
+{\bf This Work:} Address these questions in the convex case. Answers:
+
+\begin{enumerate}
+    \item Better avg. performance per-task if optimal task-parameters are close together
+    \item GBML is the best we can do without stronger task-similarity assumptions
+    \item NAtural connection between GBML to regularized multi-task learning
+\end{enumerate}
+
+Main strategy: connection to online convex optimization.\\
+$\ra$ Consider what a standard gradient based method does. Pick first initialization $\phi_1 \in \Phi$, then for task $t = 1 \ldots T$;
+\begin{enumerate}
+    \item Run $m$ steps of SGD
+    \item 
+\end{enumerate}
+Can then import guarantees from online convex optimization, specifically regret guarantees that encode distance from initialization. \\
+
+Main result:
+\begin{theorem}
+GRBML achieve average regret of:
+\[
+O\left(D + \frac{\log T}{T} \sqrt{m}\right),
+\]
+where $T$ is the number of tasks, $D$ is the radius, \dnote{didn't catch $m$}.
+\end{theorem}
+
+\spacerule
+
+\subsubsection{Towards Understanding Knowledge Distillation}
+
+Talk by Mary Phuong. \\
+
+{\bf Idea:} Knowledge distillation. A teacher (trained neural net), comes up with/represents a function $f_\theta : \mc{X} \ra \mc{Y}$. Then, would like to compress this function into a smaller/simpler network (a student!). \\
+
+Q: How effective is distillation? Make this concrete by studying a quantity called the {\it transfer risk}, measuring how bad the distillation process can be. \\
+
+Setting: linear distillation: 1) linear teacher, 2) student is a deep neural net. \\
+
+{\bf Results:}
+\begin{enumerate}
+    \item Can compute exactly what the student will learn! Teacher is $f_t(x) = w^T x$, then student will be either exactly the teacher (depending on amount of data).
+    \item Can also bound the transfer risk:
+    \begin{align}
+        n_data &\geq d \implies risk = 0 \\
+        n_data &< d \implies risk \leq \left(\frac{\log n_{data}}{n-data}\right)^\kappa, \\
+    \end{align}
+    with $\kappa \in [0,\In infty)$ the easiness of the distr.
+\end{enumerate}
+
+\spacerule
+
+\subsubsection{Transfer Adversarial Training}
+
+Talk by Hong Liu. \\
+
+{\bf Typical Assumption:} training data and test data are drawn from same distribution. \\
+
+$\ra$ What if we change this? \\
+
+$\therefore$ This work: how do we generalize a learner across different distributions $P$ and $Q$. \\
+
+{\bf Goal:} bound the target error (on distr $Q$) with error from train error (on distr $P$). \\
+
+$\ra$ existing theory based on domain adaptation. \\
+
+Prior work (adversarial feature adaptation):
+\begin{enumerate}
+    \item Minimize source risk
+    \item Minimize discrepancy term: learn a few feature representation where discrepancy is minimized
+    \item Define as a two player game: domain discriminator tries to discriminate the source and target domain, while feature extractor tries to confuse it.
+\end{enumerate}
+
+But, a prerequisite for doing domain adaptation: adaptability quantified by $\lambda$. If $\lambda$ is large, we can never expect to adapt a learner trained on source domain. \\
+
+Q: How can we amend this? \\
+
+A: One way is to fix feature representations to prevent adaptability from getting worse. \\
+
+But: now we need to figure out how to adapt to the target domain. \\
+
+{\bf New Model:} Transferable ADversarial Training (TAT).
+\begin{itemize}
+    \item Main Idea: instead of feature adaptation associated source and target domain with transferable examples
+    \item Generate transferable examples to bridge the gap across the two domains.
+    
+    $\ra$ Concretely: train a classifier and a domain discriminator.
+    \item Overall optimization problem: 
+    \begin{enumerate}
+        \item four loss terms, w/ fixed feature representations.
+        \item  No need of feature adaption (light weight computation)
+        \item Order of magnitude faster than adversarial feature adaptation.
+    \end{enumerate} 
+\end{itemize}
+
+Analysis: consider the rotating two moon problem. Target domain is rotated $30^\circ$ from source domain. \\
+
+{\bf Experiments:} Domain adaptation benchmarks (Office031, Image-CLEF, Office-home, ViSDA). \\
+
+$\ra$ Finding: achieve comparable performance to SOTA. \\
+
+Code: \url{github.com/thuml/Transferable-Adversarial-Training}
+
+\spacerule
+
+\subsection{Contributed Talks: RL Theory}
+
+Now, more RL theory.
+
+\subsubsection{Provably Efficient Imitation Learning from Observation Alone}
+
+Talk by Wen Sun. \\
+
+{\bf Goal:} 
+
+Prior works can achieve:
+\[
+\text{poly}(Horizon, |A|, |S|, 1/(1-\gamma))
+\]
+
+This setting: Imitation learning from observations
+\begin{itemize}
+    \item Given: trajectories of observations
+    \item Learning from observations
+    \item No interactive expert, no expert action, no reset, and no cost signals
+\end{itemize}
+
+{\bf NE Algorithm:} Forward Adversarial Imitation Learning (FAIL), model-free approcah. \\
+
+$\ra$ Idea: learn a sequence of policies, $\pi_1, \ldots, \pi_{T-1}$. To learn each policy, treat it as a two player game. \\
+
+$\ra$ To solve the game, treat it as a min-max game, sove it as a minimzing integral probability metric (IPM):
+\[
+\max_{f \in \mc{F}} \bE_{x \sim P}\left[f(x)\right] - \bE_{x \sim Q}\left[f(x)\right],
+\]
+with $\mc{F}$ a set of discriminators. $\pi_0$ together with the dynamic model define one agent (the generator), and $\pi_1^\star$ as the expert distribution. Then, want:
+\[
+\max_{\pi_0 \in \Pi} \max_{f \in \mc{F}}f(\pi_1^{\star} - f(\pi_0).
+\]
+Solving the above yields the next policy, $\pi_1$, and rinse and repeat this process. \\
+
+Q: What is the sample complexity of this approach? \\
+
+A: Well, if discriminator is very strong, we'll overfit. But if it's too weak, it will be unable to distinguish well. \\
+
+$\ra$ So, introduce the ``inherent bellman error"
+\ddef{Inherent Bellman Error}{The inherent bellman error of a function class $\mc{F}$ is given by:
+\[
+\Gamma^* f(x) \triangleq \bE_{a \sim \pi^*, x \sim P(\cdot \mid s, a)} \left[f(x')\right]
+\]}
+
+Result of FAIL:
+\begin{theorem}
+Under the realiazability assumption, so $\pi^* \in \Pi$ and $V^* \in \mc{F}$, then to learn a near optimal policy we need:
+\[
+\text{poly}\left(T, A, 1/\eps, SC(\Pi), SC(\mc{F})\right),
+\]
+with SC the statistical complexity of the function family.
+\end{theorem}
+
+But, the above forces us to suffer this inherent bellman error. \\
+
+Q: Is this inherent bellman error avoidable in the imitation learning from observation setting? \\
+
+A: Yes! But in model-based RL.
+\begin{itemize}
+    \item Start with a realizable model class, so $P \in \mc{P}$.
+    \item Then there exists an algorithm that takes $\mc{P}, \m{F}$ as input, outputs an $\eps$ optimal policy in the above sample bound.
+\end{itemize}
+
+{\bf Experiments:} Implement this imitation learning algorithm on simulated results (fetch reach and reacher), perform quite well (with limited parameter tuning). \\
+
+{\bf Takeaways:}
+\begin{itemize}
+    \item With observations alone from experts, we can learn optimal policies
+    \item Near-optimal guarantees
+    \item Supervised learning type sample complexity
+    \item Out-of-box performance is pretty good.
+\end{itemize}
+
+\spacerule
+
+\subsubsection{Dead Ends and Secure Exploration}
+
+Talk by Mehdi Fatemi. \\
+
+Q: What is a dead end? \\
+
+$\ra$ A terminal state is {\it is undesired} if it prevents achieving maximum return. \\
+
+\ddef{Dead End State}{A state $s_d$ is dead end if all trajectories starting from $s_d$ reach an undesired terminal state with probability $1$ in some finite (possibly random) number of steps.}
+
+Q: Why should we care about dead ends? \\
+
+A: Most algorithms only converge under the assumption of infinite $(s,a)$ visitation $\forall_{s,a}$. \\
+
+$\ra$ New idea:
+\ddef{Policy Security}{A policy is secure if for any $\lambda \in [0,1]$:
+\[
+\sum_{s'} T(s,a,s') \geq 1-\lambda \implies \eta(s,a) \leq \lambda.
+\]}
+
+{\bf Solution:} Make a new MDP called the ``exploration" MDP similar to the original MDP but with some subtle changes. Result:
+\begin{theorem}
+Let $\eta$ be any policy s.t. $\eta(s,a) \leq 1+ Q^*(s,a)$, where $Q^*(s,a) \neq -1$ for at least one action. \\
+
+Then, $\eta$ is secure.
+\end{theorem}
+
+(Also run experiments). \\
+
+
+\spacerule
+\subsubsection{Staitstics and Samples in Distributional RL}
+
+Talk by Mark Rowland. \\
+
+{\bf Recall:} Distributional RL aims to learn full return distributions:
+\[
+Z^{\pi}(s,a) = \sum_{i=0}^\infty \gamma^t R_t.
+\]
+
+{\bf Main Contribution:} New approach---learn functions of the return distributions directltly like moments, tail probabilities, expectations, and so on. \\
+
+New framework! Allows progress in new areas:
+\begin{itemize}
+    \item {\it Theory:} fundamentally, what properties can we learn about return distributions from dynamic programming
+    \item {\it Algorithms:} framework for approximate learning of statistics of the return distributions.
+\end{itemize}
+
+ Application: ``expectiles". New deep RL agent ``Expectile-Regression DQN" (ER-DQN) with improved mean performance relative to QR-DQN (quantile regression DQN).
+ 
+ \spacerule
+ 
+ \subsubsection{Hessian Aided Policy Graident}
+ Talk by Zebang Shen. \\
+ 
+ {\bf Idea:} Formulate policy optimization as optimization of a trajectory. \\
+ 
+ $\ra$ Old approach: use REINFORCE/SGD to slowly improve policies via polict gradients. \\
+ 
+ New approach: ``oblivious" policy optimization. Can improve sample efficiency of existing policy gradients in this ``obvivious case". \\
+ 
+ But: in the ``oblivious" case, the policy gradient algorithm becomes biased. So, correct \\
+ 
+ {\bf Summary:} First provable method that reduces sample complexity to achieve an $\eps$ optimal from $O(1/\eps^4)$ to $O(1/\eps^3)$ via policy optimization.
+ 
+ \spacerule
+ 
+ \subsubsection{Maximum Entropy Exploration}
+ 
+ Talk by Elad Hazan. \\
+ 
+ {\bf Setting:} Agent is in an MDP without a reward signal. How can it explore? \\
+ 
+ $\ra$ Existing approaches; task-agnostic exploration, curiosity, and exploration bonuses. \\
+ 
+ Main Q: Can we solve exploration without rewards efficiently? \\
+ 
+ The setting:
+ \begin{itemize}
+     \item Every $\pi$ induces a state distribution
+     \item Given a policy class $\Pi$ and a concave functional $H$, action on the state distr., can we find:
+     \[
+     \max_{\pi \in \Pi} H(d_\pi),
+     \]
+     with $d_\pi$ the stationary distr. on states induced by $\pi$.
+ \end{itemize}
+ 
+ \begin{proposition}
+ $H(d_\pi)$ is not concave in $\pi$.
+ \end{proposition}
+ 
+ {\bf New Algorithm:} Max Entropy algorithm. Take the concept of a uniform mixture of policies $C = (\pi_1, \ldots, \pi_k)$.
+ \begin{enumerate}
+     \item Density estimator
+     \item 
+ \end{enumerate}
+ 
+ \begin{theorem}
+ In finite (small) iterations, algorithm guarantees $H(d_{mix}) \leq \max_{\pi \in \Pi}H(d_\pi) -\eps$ (effectively solves this problem).
+ \end{theorem}
+ 
+ \spacerule
+ \subsubsection{Combining Multiple Models for Off-Policy Evaluation}
+ 
+ Talk by Omer Gottesman. \\
+ 
+ \ddef{Off-policy Evaluation}{Assume we have a batch of data collected by some policy $\pi$ we don't control, and use this data to evaluate some other policy $\widehat{\pi}$.}
+ 
+ Two general approaches:
+ \begin{enumerate}
+     \item Model-based: Use the data to learn an environmental model, then use this to evaluate the new policy.
+     \item Importance-sampling: reweight returns/state visitations based on policy differences.
+     
+     $\ra$ Problem: huge variance! (even if other nice statistical properties).
+ \end{enumerate}
+ 
+ Q: If we had multiple models with different strengths, could we combine them to get better estimates? \\
+ 
+ A: Yes, this underlies main idea of the work! \\
+ 
+ {\bf Intuitive example:} two regions of an MDP--- 1) top, well modeled, and 2) bottom, poorly modeled. Suppose we have models that move into just the top/bottom areas: we know the trajectories in the top will be better! So, stick with the model that does will in this region \\
+ 
+ $\ra$ Idea: might want to trade-off short term vs. long term accuracy. Bound on model-errors:
+ \[
+ |g_T - \hat{g}_T| \leq L-t \sum_{t=0}^T \gamma^t \sum_{t'=0}^T L_t^{t'} \eps_t (t-t'-1) + \sum_{t=0}^T \gamma^ \eps_r(t),
+ \]
+where $\eps_r$ and $\eps_t$ are error bounds, $g_T$ is return (and $\hat{g}_T$ is estimate), and $L_t$ is a Lipschitz constant \dnote{(on transitions, I think?)} \\
+
+Idea: use MCTS to minimize return error bound over entire trajectories. \\
+
+Two kinds of models:
+\begin{enumerate}
+    \item Nonparametric models: predicting the dynamics for a given state-action pair based on similarity to neighbors.
+    
+    {\bf Strength:}  Can be very accurate in regions of state space where data is abundant
+    
+    \item Parametric models: any parametric regression model or hand coded model incorporating domain knowledge.
+    
+    {\bf Strength:} Tend to generalize better to situations different from ones observed in data.
+\end{enumerate}
+
+$\ra$ Nice thing about these two kinds of models: they have different strengths! So, let's combine these two.\\
+
+{\bf Experiments:} Medical simulators (simulating growth of cancer cells and HIV). Compare, for different behavioral policies, off-policy evaluation. \\
+
+{\bf Summary:}
+\begin{itemize}
+    \item provide a general framework for combining multiple models to improve off-policy evaluation
+    \item Improvements via individual models, error estimation or combining multiple models.
+\end{itemize}
+
+\spacerule
+
+
+\subsubsection{Sample-Optimal Parametric $Q$-Learning Using Linear Features}
+
+Talk by Lin F. Yang. \\
+
+Consider: curse of dimenstionality! Optimal sample complexity is:
+\[
+\tilde{\Theta}\left((1-\gamma)^{-3}|\mc{S}||\mc{A}|\right)
+\]
+
+$\ra$ Too many states and actions. So, how can we optimally reduce dimensionality of the game?\\
+
+A: Exploit structure! \\
+
+{\bf Approach:} Feature-based MDP. decompose transition model:
+\[
+P(s' \mid s,a) = \sum_{k \in [K]} \phi_k(s,a)^T \psi_k(s'),
+\]
+which decomposes MDP into some number of factors, where $\phi$ is {\it known} and $\psi$ is unknown. \\
+
+Toy Example: Stock prices! In some financial models we can decompose a stock price into a linear combination of a set of representative stocks. If this is the case, we can solve the RL problem parametrically using a $Q$ that models this linear relationship. \\
+
+$\ra$ Idea: Generative Model we are able to sample from (any $s,a$). Represent $Q$ function with parameters $w \in \mathbb{R}^k$, so:
+\[
+Q_w = r(s,a) \gamm \phi(s,a)^T w
+\]
+Then, learning with modified Q-Learning can achieve sample complexity of:
+\[
+\tilde{O}\left(\frac{K}{\eps(1-\gamma)^7}\right).
+\]
+
+Q: Is this optimal? \\
+
+A: No, can show that under the ``anchor condition", this collapses to:
+\[
+\tilde{\Theta}\left(\frac{K}{\eps^2(1-\gamma)^3}\right).
+\]
+
+\spacerule
+
+\subsubsection{Transfer of Samples in Policy Search}
+
+Talk by
+
+{\bf Policy Search:} Effective RL technique for continuous control tasks. \\
+
+$\ra$ High sample complexity remains a major limitation. Samples available from several sources are discarded. \\
+
+Formally: given some source tasks (MDPs with different models), reuse data collected from these problems in a {\it new}, related task. \\
+
+{\bf Contribution 1:} A new importance sampler technique that allows for a more effective gradient estimator. \\
+
+$\ra$ Nice properties of the estimator
+\begin{enumerate}
+    \item Unbiased and bounded weights.
+    \item Easily combined w/ other variance reduction techniques.
+    \item Effective sample size $\equiv$ transferable knowledge (adaptive batch size.
+    \item Provably robust to negative transfer.
+\end{enumerate}
+
+Problem! $P$ unknown in general so importance weights can't be computed. \\
+
+$\ra$ Solution: online minimization of upper bound. \\
+
+Empirical results: good performance with both known and unknown models (cartpole, minigolg). Very effective sample reuse from different policies but same environment. \\
+
+\spacerule
+
+\subsubsection{Exploration Conscious RL Revisited}
+
+Talk by.
+
+Q: Why exploration conscious? \\
+
+A: To learn a good policy an RL agent must explore! \\
+
+$\ra$ New Objective: find the optimal policy knowing exploration will occur under a particular {\it strategy}. \\
+
+{\bf Main Approach:} consider a fixed exploration scheme ($\eps$ greedy, etc.). Then: 1) choose greedy action, 2) draw exploration action, 3) act, 4) receive $r, s'$. \\
+
+$\ra$ Use information about the exploration conscious problem. \\
+
+Two Methods:
+\begin{enumerate}
+    \item {\it Expected:} Update $Q$ of action you actually took, but expect the agent might explore in the next state. Thus, bootstrap using this method (but, calculating this expectation can be hard).
+    \item {\it Surrogate:} (Main Contribution): add exploration directly into the environment.
+\end{enumerate}
+
+{\bf Conclusion:} Exploration conscious RL and specifically, surrogate approach, can easily help improve a variety of RL algorithms.
+
+\spacerule
+
+\subsubsection{Kernel Based RL in Robust MDPs}
+
+Talk by Shiau Hong Lim. \\
+
+\ddef{Robust MDP}{Extends MDP by considering model mismatch and parameter uncertainty.}
+
+For ustate aggregation, performance bound on $||V_R^\pi - V^*||$ improved via robust policies:
+\[
+O(\frac{1}{(1-\gamma)^2} \ra O(\frac{1}{(1-\gamma)}
+\]
+
+{\bf Contributions;}
+\begin{enumerate}
+    \item Robust performance bound improvement by extending to kernal averager setting.
+    \item Formulation of a practical kernel-based robust algorithm, with empirical results on benchmark tasks.
+\end{enumerate}
+
+\begin{theorem}
+Extend value loss bounds of state aggregation to count-based setting.
+\end{theorem}
+
+$\ra$ Practical algorithm: use kernel averager to approximate MDP model, then solve approximate model with approximate robust Bellman operator.\\
+
+{\bf Conclusion:} 1) Performance guarantees for robus kernel-based RL, and 2) Show significant empirical benefits from this method.
+
+\dnote{And that's a wrap for Wednesday!}
