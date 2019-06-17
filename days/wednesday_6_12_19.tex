@@ -1,8 +1,6 @@
-\dnote{I took the morning off to attend to some other work}
+The day (afternoon, really) begins with contributed talks on multitask/lifelong learning.
 
-The day (afternoon, really) begins with contribued talks on multitask/lifelong learning.
-
-\subsection{Contribued Talks: Multitask and Lifelong Learning}
+\subsection{Contributed Talks: Multitask and Lifelong Learning}
 
 Most talks will again be five minutes, with a few being 20. 
 
@@ -46,7 +44,9 @@ $\ra$ Finding: new model (DAD) improves performance over SOTA by 6\% on average 
 \spacerule
 
 
-\subsubsection{Composing Value Functions in RL}
+\subsubsection{Composing Value Functions in RL~\cite{van2019composing}}
+
+Talk by Steve James. \\
 
 \dbox{{\bf Central Question:} Can we blence value functions together from different tasks to solve interesting combinations of the tasks without further learning?}
 
@@ -73,7 +73,7 @@ Summary:
 \end{enumerate}
 
 \spacerule
-\subsubsection{CAVIA: Fast Context Adaptation via Meta Learning}
+\subsubsection{CAVIA: Fast Context Adaptation via Meta Learning~\cite{zintgraf2019fast}}
 
 Talk by Luisa Zintgraf. \\
 
@@ -93,7 +93,7 @@ $\ra$ Context parameters are interpretable, and can be reused across tasks. \\
 
 \spacerule
 
-\subsubsection{Gradient Based Meta-Learning: A simple but effective approach}
+\subsubsection{Gradient Based Meta-Learning~\cite{khodak2019adaptive}}
 
 Talk by Mikhail Khodak. \\
 
@@ -115,7 +115,7 @@ Main strategy: connection to online convex optimization.\\
 $\ra$ Consider what a standard gradient based method does. Pick first initialization $\phi_1 \in \Phi$, then for task $t = 1 \ldots T$;
 \begin{enumerate}
     \item Run $m$ steps of SGD
-    \item 
+    \item \dnote{Missed it.}
 \end{enumerate}
 Can then import guarantees from online convex optimization, specifically regret guarantees that encode distance from initialization. \\
 
@@ -125,12 +125,12 @@ GRBML achieve average regret of:
 \[
 O\left(D + \frac{\log T}{T} \sqrt{m}\right),
 \]
-where $T$ is the number of tasks, $D$ is the radius, \dnote{didn't catch $m$}.
+where $T$ is the number of tasks, $D$ is the radius, \dnote{didn't catch $m$, presumably num samples}.
 \end{theorem}
 
 \spacerule
 
-\subsubsection{Towards Understanding Knowledge Distillation}
+\subsubsection{Towards Understanding Knowledge Distillation~\cite{phuong2019towards}}
 
 Talk by Mary Phuong. \\
 
@@ -142,7 +142,7 @@ Setting: linear distillation: 1) linear teacher, 2) student is a deep neural net
 
 {\bf Results:}
 \begin{enumerate}
-    \item Can compute exactly what the student will learn! Teacher is $f_t(x) = w^T x$, then student will be either exactly the teacher (depending on amount of data).
+    \item Can compute exactly what the student will learn! Teacher is $f_t(x) = w^\top x$, then student will be either exactly the teacher (depending on amount of data).
     \item Can also bound the transfer risk:
     \begin{align}
         n_data &\geq d \implies risk = 0 \\
@@ -153,7 +153,7 @@ Setting: linear distillation: 1) linear teacher, 2) student is a deep neural net
 
 \spacerule
 
-\subsubsection{Transfer Adversarial Training}
+\subsubsection{Transferable Adversarial Training~\cite{liu2019transferable}}
 
 Talk by Hong Liu. \\
 
@@ -210,15 +210,13 @@ Code: \url{github.com/thuml/Transferable-Adversarial-Training}
 
 Now, more RL theory.
 
-\subsubsection{Provably Efficient Imitation Learning from Observation Alone}
+\subsubsection{Provably Efficient Imitation Learning from Observation Alone~\cite{sun2019provably}}
 
 Talk by Wen Sun. \\
 
-{\bf Goal:} 
-
-Prior works can achieve:
+Prior works can achieve sample complexity of:
 \[
-\text{poly}(Horizon, |A|, |S|, 1/(1-\gamma))
+\text{poly}(Horizon, |A|, |S|, 1/(1-\gamma)).
 \]
 
 This setting: Imitation learning from observations
@@ -283,7 +281,7 @@ A: Yes! But in model-based RL.
 
 \spacerule
 
-\subsubsection{Dead Ends and Secure Exploration}
+\subsubsection{Dead Ends and Secure Exploration~\cite{fatemi2019dead}}
 
 Talk by Mehdi Fatemi. \\
 
@@ -314,7 +312,7 @@ Then, $\eta$ is secure.
 
 
 \spacerule
-\subsubsection{Staitstics and Samples in Distributional RL}
+\subsubsection{Statistics and Samples in Distributional RL~\cite{rowland2019statistics}}
 
 Talk by Mark Rowland. \\
 
@@ -335,7 +333,7 @@ New framework! Allows progress in new areas:
  
  \spacerule
  
- \subsubsection{Hessian Aided Policy Graident}
+ \subsubsection{Hessian Aided Policy Gradient~\cite{shen2019hessian}}
  Talk by Zebang Shen. \\
  
  {\bf Idea:} Formulate policy optimization as optimization of a trajectory. \\
@@ -350,7 +348,7 @@ New framework! Allows progress in new areas:
  
  \spacerule
  
- \subsubsection{Maximum Entropy Exploration}
+ \subsubsection{Maximum Entropy Exploration~\cite{hazan2018provably}}
  
  Talk by Elad Hazan. \\
  
@@ -385,7 +383,7 @@ New framework! Allows progress in new areas:
  \end{theorem}
  
  \spacerule
- \subsubsection{Combining Multiple Models for Off-Policy Evaluation}
+ \subsubsection{Combining Multiple Models for Off-Policy Evaluation~\cite{gottesman2019combining}}
  
  Talk by Omer Gottesman. \\
  
@@ -437,7 +435,7 @@ $\ra$ Nice thing about these two kinds of models: they have different strengths!
 \spacerule
 
 
-\subsubsection{Sample-Optimal Parametric $Q$-Learning Using Linear Features}
+\subsubsection{Sample-Optimal Parametric $Q$-Learning Using Linear Features~\cite{yang2019sample}}
 
 Talk by Lin F. Yang. \\
 
@@ -460,7 +458,7 @@ Toy Example: Stock prices! In some financial models we can decompose a stock pri
 
 $\ra$ Idea: Generative Model we are able to sample from (any $s,a$). Represent $Q$ function with parameters $w \in \mathbb{R}^k$, so:
 \[
-Q_w = r(s,a) \gamm \phi(s,a)^T w
+Q_w = r(s,a) \gamma \phi(s,a)^t w
 \]
 Then, learning with modified Q-Learning can achieve sample complexity of:
 \[
@@ -476,9 +474,9 @@ A: No, can show that under the ``anchor condition", this collapses to:
 
 \spacerule
 
-\subsubsection{Transfer of Samples in Policy Search}
+\subsubsection{Transfer of Samples in Policy Search~\cite{tirinzoni2019transfer}}
 
-Talk by
+Talk by Andre Tirinzoni. \\
 
 {\bf Policy Search:} Effective RL technique for continuous control tasks. \\
 
@@ -506,8 +504,6 @@ Empirical results: good performance with both known and unknown models (cartpole
 
 \subsubsection{Exploration Conscious RL Revisited}
 
-Talk by.
-
 Q: Why exploration conscious? \\
 
 A: To learn a good policy an RL agent must explore! \\
@@ -528,7 +524,7 @@ Two Methods:
 
 \spacerule
 
-\subsubsection{Kernel Based RL in Robust MDPs}
+\subsubsection{Kernel Based RL in Robust MDPs~\cite{lim2019kernel}}
 
 Talk by Shiau Hong Lim. \\
 

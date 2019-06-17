@@ -11,21 +11,22 @@
 \hbadness=10000 % No "underfull hbox" messages.
 \setlength{\parindent}{0pt} % Removes all indentation.
 
+% -- Commands --
+\input{commands}
 
 % Nice coloring of references.
 \usepackage{hyperref}
 \hypersetup{               
-    colorlinks=true,               
+    colorlinks=true,              
     breaklinks=true,               
-    urlcolor= dblue,                
-    linkcolor= dred,                
-    linkbordercolor=dred,
+    urlcolor=dblue,
+    linkcolor=dgreen,
+    linkbordercolor=dgreen,
     citecolor=dblue,
-    citebordercolor=dblue,
+    citebordercolor=dblue
 }
 
-% -- Commands --
-\input{commands}
+
 
 \title{ICML 2019 Notes \\ \Large{Long Beach, CA, USA}}
 \author{David Abel\footnote{\durl{http://david-abel.github.io}} \\ \durl{david_abel@brown.edu}}
@@ -41,6 +42,24 @@ This document contains notes I took during the events I managed to make it to at
 
 
 \section{Conference Highlights}
+
+
+I spent most of my time at the RL sessions this round (and sadly missed all of the keynotes), so most of my reflections (and notes) are concentrated on RL:
+\begin{enumerate}
+    \item Lots of great work on off-policy evaluation and off-policy learning (see, for instance, work by \citet{hanna2018importance,le2019batch,fujimoto2018off,gottesman2019combining}, and talks in Section~\ref{sec:off_pol}). These problem settings are really important, as I (and many others) anticipate RL applications will come along with loads of data from sub-optimal policies.
+    
+    \item Exploration was a hot topic again, and rightfully so (see work by~\citet{mavrin2019distributional,fatemi2019dead,hazan2018provably,shani2019exploration}). Along with off-policy evaluation (and a few others), it's one of the foundational problems in RL that we're in a good position to make serious progress on at the moment.
+    
+    \item Some really nice work continuing to clarify distributional RL~\cite{bellemare2017distributional} (see work by~\cite{rowland2019statistics,mavrin2019distributional,qu2018nonlinear}).
+    
+    \item The AI for climate change workshop on Friday was fantastic and extremely well attended (standing room only for the talks I was there for). I've said this after previous conferences, but: as we all know, there are profoundly important problems, and the tools of ML can be extremely effective in their current form.
+    
+    \item I really think we need to standardize evaluation in RL. Not that we only need a single method for doing so, or a single domain, but at the moment there is far too much variance in evaluation protocols.
+    
+    \item Loved the panel at the RL for real life workshop (see Section~\ref{sec:panel})
+\end{enumerate}
+
+
 
 % ------------
 % -- Sunday --
@@ -82,7 +101,7 @@ This document contains notes I took during the events I managed to make it to at
 % -- Friday --
 % ------------
 \newpage
-\section{Friday June 14th: Main Conference}
+\section{Friday June 14th: Workshops}
 \input{days/friday_6_14_19.tex}
 
 

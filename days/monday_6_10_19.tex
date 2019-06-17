@@ -1,4 +1,4 @@
- It begins! Today will be entirely tutorials---I arrived just in time for the second half of the PAC-Bayes tutorial. 
+ It begins! I arrived for the second half of the PAC-Bayes tutorial. 
 
 \subsection{Tutorial: PAC-Bayes Theory (Part II)}
 
@@ -6,12 +6,6 @@ The speakers are Benjamin Guedi and John Shawe-Taylor. \\
 
 {\bf Part I Recap:}~\citet{shawe1997pac} carried out PAC~\cite{valiant1984theory} analysis of Bayesian estimators (also see Figure~\ref{fig:pac_bayes}. Shortly after,~\citet{mcallester1999some} presented the first {\it PAC-Bayesian} bound:
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/pb1.JPG}
-    \caption{Differences in Bayes and PAC-Bayes}
-    \label{fig:pac_bayes}
-\end{figure}
 
 
 \begin{theorem}
@@ -21,14 +15,23 @@ The speakers are Benjamin Guedi and John Shawe-Taylor. \\
     \Pr\left(\forall_{Q \in \mc{H}} : R_{out}(Q) \leq R_{in}(Q) + \sqrt{\frac{\KL{Q}{P}) + \ln \frac{2 \sqrt{m}}{\delta}}{2m}}\right) \geq 1-\delta,
     \label{eq:pac_bayes}
 \end{equation}
-where $\mc{H}$ is the hypothesis space, $m$ is the number of samples, $R_{out}$ is the risk of a hypothesis on the test data, $R_{in}(h)$ is the risk of the data on the training data, $P$ is the prior, and $Q$ is the posterior.
+where $\mc{H}$ is the hypothesis space, $m$ is the number of samples, $R_{out}$ is the risk of a hypothesis on the test data, $R_{in}(h)$ is the risk of the hypothesis on the training data, $P$ is the prior, and $Q$ is the posterior.
 \end{theorem}
+
 
 PAC-Bayes: a flexible learning theoretic framework! Tight connections to regression, linear classification \& SVMs, transductive learning, uses in RL~\cite{fard2010pac}, and more.
 
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/pb1.JPG}
+    \caption{Differences in Bayes and PAC-Bayes}
+    \label{fig:pac_bayes}
+\end{figure}
+
+
+
 \subsubsection{PAC-Bayes Theory}
-This section explores the high level view of PAC-Bayesian Theory. \\
 
 Q: How can PAC-Bayes drive learning? \\
 
@@ -51,12 +54,12 @@ Presents an optimization problem: can be solved or approximated to find good sol
 
 PAC-Bayes interpretation of celebrated algorithms: 
 \begin{itemize}
-    \item SVM with a sigmoid loss and KL-regularized Adaboost canm be reinterpreted as minimizer of PAC-Bayesian bounds~\cite{ambroladze2007tighter}.
+    \item SVM with a sigmoid loss and KL-regularized Adaboost can be reinterpreted as minimizer of PAC-Bayesian bounds~\cite{ambroladze2007tighter}.
     \item Also, the minimizer of:
     \[
     \left\{R_{in}(Q) + \frac{KL}{\lambda}\right\},
     \]
-    is the celbrated Gibbs posterior:
+    is the celebrated Gibbs posterior:
     \[
     Q_\lambda(h) \propto \exp(-\lambda R_{in}(h)) P9h), \hspace{5mm} \forall_{h \in \mc{H}}.
     \]
@@ -68,27 +71,27 @@ PAC-Bayes interpretation of celebrated algorithms:
 
 \begin{theorem}
 \[
-\log \int (\exp \phi) dP = \sup_{Q \ll P} \left\{ \int \phi dQ - KL(Q,P)\right\}.
+\log \int \exp \phi dP = \sup_{Q \ll P} \left\{ \int \phi dQ - \KL{Q}{P}\right\}.
 \]
 \end{theorem}
 \begin{proof}
 First require variational definition of KL-Divergence~\cite{csiszar1975divergence}
 \begin{align}
     -\KL{Q}{G} &= - \int \log\left(\frac{dQ}{dP} \frac{dP}{dG}\right) dQ \\
-    &= -\KL{Q}{P} + \int \phi dp - \log \int(\exp \phi) dP.
+    &= -\KL{Q}{P} + \int \phi dp - \log \int \exp \phi dP.
 \end{align}
-Note that KL is non negative, $Q \ra -\KL{Q}{P}$ reaches its max in $Q=G$. Thus, taking $\phi = -\lambda R_{in}$:
+Note that KL$>0$, $Q \ra -\KL{Q}{P}$ reaches its max in $Q=G$. Thus, taking $\phi = -\lambda R_{in}$:
 \[
-Q_\lambda(h) \propto \exp(-\lambda R_{in}(h)) P9h), \hspace{5mm} \forall_{h \in \mc{H}}. \qedhere
+Q_\lambda(h) \propto \exp(-\lambda R_{in}(h)) P(h), \hspace{5mm} \forall_{h \in \mc{H}}. \qedhere
 \]
 \end{proof}
 
 Q: What about non-i.i.d. data? \\
 
-A: Sure! Let's drop the i.i.d. and bounded loss assumptions. First, consider the moment of a distribution:
+A: Sure! Let's drop the i.i.d. and bounded loss assumptions. First, need moments:
 \ddef{Moment}{The $p$-th moment of a distribution is given by:
 \[
-M_p := \int \bE\left[|R_{in}(h) - R_{out}(h)|^p )\right) dP(h).
+M_p := \int \bE\left[|R_{in}(h) - R_{out}(h)|^p \right] dP(h).
 \]}
 
 Also make use of $f$-divergences, a generalization of the KL-Divergence. \\
@@ -106,7 +109,7 @@ Oracle Bounds;~\citet{catoni2007pac} derived PAC-Bayesian bounds for the Gibbs p
 
 \subsubsection{PAC-Bayes and Task Awareness}
 
-Note: PAC-Bayesian bounds express a tradeoff between empirical accuracy and a measure of complexity. \\
+Note: PAC-Bayesian bounds express a trade-off between empirical accuracy and a measure of complexity. \\
 
 Q: So, how can we improve the bounds we get? How do we choose the right prior distribution so that we can 1) control complexity, and 2) ensure good performance? \\
 
@@ -116,15 +119,15 @@ $\ra$ So: can we choose a ``better' prior? (without looking at the test data its
 
 Can use PAC-Bayes in SVMs:
 \begin{itemize}
-    \item Assume prior and poster are spherical Gaussians (w/ prior centered at origin, posterirer centered at a scaling $\mu$ of unit SVM weight vector).
+    \item Assume prior and poster are spherical Gaussians (w/ prior centered at origin, posterior centered at a scaling $\mu$ of unit SVM weight vector).
     \item Implies that KL term in generalization error bound is $\mu^2 / 2$ (see Theorem~\ref{thm:pac_bayes}).
-    \item Can computer schochastic error of posterior distribution behaves like a soft margin, scaling $\mu$ trades between margin loss and KL.
+    \item Can computer stochastic error of posterior distribution behaves like a soft margin, scaling $\mu$ trades between margin loss and KL.
     \item Bound holds for all $\mu$, so choose $\mu$ to optimize the bound.
 \end{itemize}
 
 Q: But how do we learn the prior for SVMs?
 \begin{itemize}
-    \item Bound depends on distance between prior and posterir
+    \item Bound depends on distance between prior and posterior
     \item Better prior means tighter bound
     \item Idea: learn prior $P$ with part of the data.
     \item Introduce learnt prior in the bound.
@@ -137,7 +140,7 @@ Results from the above methods for tightening the bounds: see Figure~\ref{fig:pb
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/pb_results.JPG}
-    \caption{Results from applyinh differnet PAC-Bayes prior selection methods to experiments.}
+    \caption{Results from applying different PAC-Bayes prior selection methods to experiments.}
     \label{fig:pb_results}
 \end{figure}
 
@@ -179,7 +182,7 @@ On stability:
 
 Q: Is deep learning breaking the statistical paradigm we know? \\
 
-$\ra$ Neural nets trained on massive datasets achieve {\it zero training error}, which does not bode well for their performance. Yet! They tend to achieve remarkably low error on test sets, too. \\
+$\ra$ Neural nets trained on massive data sets achieve {\it zero training error}, which does not bode well for their performance. Yet! They tend to achieve remarkably low error on test sets, too. \\
 
 {\bf Idea:} Perhaps we can use PAC-Bayes to explain this phenomena. \\
 
@@ -207,11 +210,13 @@ A2: Information bottleneck criterion~\cite{} might control this information, and
 
 {\bf Conclusions:}
 \begin{itemize}
-    \item PAC-Bayes arises from two fields: 1) statistical learning theory, and 2) Bayesian Learning
-    \item Generlazies both fields and points to promising directions
+    \item PAC-Bayes arises from two fields: 1) statistical learning theory, and 2) Bayesian Learning.
+    \item Generalizes both fields and points to promising directions.
     \item PAC-Bayes theory can be an inspiration toward new theoretical analysis, but also drive algorithm design (especially when theory has proven difficult).
 \end{itemize}
 
+
+\spacerule
 
 \subsection{Tutorial: Meta-Learning}
 
@@ -219,11 +224,11 @@ The speakers are Chelsea Finn and Sergey Levine. \\
 
 {\bf Motivation:} Learn from small amounts of data. \\
 
-$\ra$ Recent advancements {\it thrive} in large diverse data sets 9in the sense that it allows for broad generalization) (see; BERT, AlexNet0 \\
+$\ra$ Recent advancements {\it thrive} in large diverse data sets 9in the sense that it allows for broad generalization) (see: BERT, AlexNet) \\
 
 $\ra$ Existing approaches require huge data sets. But, some questions:
 \begin{enumerate}
-\item  what if we don't have a large dataset/
+\item  What if we don't have a large data set?
 \item What if we want a general purpose AI system in the world?
 \item What if our data has a long tail?
 \end{enumerate}
@@ -256,7 +261,7 @@ Q: How do we formulate the meta-learning problem? \\
 
 A1: Mechanistic view! A model reads in an entire data set and makes predictions for new datapoints. Training this network uses a ``meta"-dataset which itself consists of many datasets. \\
 
-A2: Probabilistic view: expreact prior info from a set of (meta-training) tasks that allows efficient learning of tasks. Learning a new task usis this prior training set to infer most likely posterior parameters. \\
+A2: Probabilistic view: extract prior info from a set of (meta-training) tasks that allows efficient learning of tasks. Learning a new task uses this prior training set to infer most likely posterior parameters. \\
 
 $\ra$ A1 is more convenient for implementation, A2 is more convenient for understanding. \\
 
@@ -271,7 +276,7 @@ where $D = \{(x_1,y_1), \ldots, (x_n, y_n)\}$. Applying Bayes rules, this comes 
 }
 \ddef{Meta-Learning}{Find the parameters $\theta$ that enables us to quickly solve new tasks, given a bunch of datasets $D_{\text{meta-train}}$:
 \[
-\argmax_{\phi} \log \Pr(\phi \mid D, D_{\text{meta-train}} = \argmax_{\theta} \log \int_\Theta \Pr(\phi \mid D, \theta) \Pr(\theta \mid D_{\text{meta-train}}.
+\argmax_{\phi} \log \Pr(\phi \mid D, D_{\text{meta-train}}) = \argmax_{\theta} \log \int_\Theta \Pr(\phi \mid D, \theta) \Pr(\theta \mid D_{\text{meta-train}}).
 \]
 That is, we assume $\theta$ are the sufficient statistics for $\phi$. 
 }
@@ -279,14 +284,14 @@ Hard to perform this decomposition in general: usually take a Maximum A Posterio
 
 {\bf Goal of Meta-Learning:} Find an appropriate set of parameters $\theta$, that are maximially probable given the meta-datasets. So:
 \[
-\theta^* = \argmax_\theta \log \Pr(\theta \mid D_{\text{meta-train}}.
+\theta^* = \argmax_\theta \log \Pr(\theta \mid D_{\text{meta-train}}).
 \]
 
 Notably, $D_{\text{meta-train}}$ might consist of {\it different} tasks (with related structure). \\
 
 {\bf Example:} Want to classify new data sets. First, do meta learning;
 \[
-\theta^* = \argmax_\theta \log \Pr(\theta \mid D_{\text{meta-train}}.
+\theta^* = \argmax_\theta \log \Pr(\theta \mid D_{\text{meta-train}}).
 \]
 Then, adapt and find some nearby parameters, $\phi^*$:
 \[
@@ -294,9 +299,9 @@ Then, adapt and find some nearby parameters, $\phi^*$:
 \]
 
 
-{\bf Key Idea:} Our training procedure is based on a simple machine learning principle: test and train conditions much match" (from Vinyals et al. Matching Networks for One Shot learning). \\
+{\bf Key Idea:} Our training procedure is based on a simple machine learning principle: test and train conditions much match" (see work by~\citet{vinyals2016matching}). \\
 
-Thus, for our above notion of meta-learning to make sense, we also need to hang on to tests {\it for each training} task. See Figure. \dnote{ADD FIG}. \\
+Thus, for our above notion of meta-learning to make sense, we also need to hang on to tests {\it for each training} task. \\
 
 Therefore, meta-learning can be written as:
 \[
@@ -322,7 +327,7 @@ Before discussing algorithms, let's discuss {\it evaluation}. \\
 
 {\bf Main Idea:} See~\citet{lake2015human}, introduced the Omniglot dataset. Idea: lots of classes, few examples of each class. Consists of 1623 characters from 50 different alphabets, 20 instances of each character. \\
 
-$\ra$ Proposes both few-shot discriminative and few-shot generative problems. Initial few-short learning approaches w/ Bayesian models, non-parameterics. Other such databsets: CIFAR, CUB, MiniImageNEt. \\
+$\ra$ Proposes both few-shot discriminative and few-shot generative problems. Initial few-short learning approaches w/ Bayesian models, non-parameterics. Other such data sets: CIFAR, CUB, MiniImageNEt. \\
 
 Q: How do we evaluate a meta-learning algorithm? \\
 
@@ -334,9 +339,9 @@ A: Perform usual meta-training, and determine whether the resulting model can st
 \item Choose how to optimize $\theta$ with respect to max-likelihood objective using $D_{\text{meta-train}}$.
 \end{enumerate}
 
-Approach 1: Black-box adaptation. Key idea is to train a {\it neural net to represent} $\Pr(\phi_i \mid D_i^{\text{train}}, \theta)$. \\
+Approach 1: Black-box adaptation. Key idea is to train a {\it neural net to represent} $\Pr(\phi_i \mid D_i^{\text{train}}), \theta)$. \\
 
-$\ra$ For instance, might use an RNN to represent $f_\theta$, given a bunch of these meta-training datasets. Then, we can train with standard supervised learning:
+$\ra$ For instance, might use an RNN to represent $f_\theta$, given a bunch of these meta-training data sets. Then, we can train with standard supervised learning:
 \[
 \max_\theta \sum_{T_i} L(f_\theta(D_i^{\text{train}}, D_i^{\text{test}})).
 \]
@@ -371,22 +376,22 @@ $\ra$ Model-Agnostic Meta-Learning (MAML), in the optimization can, can be viewe
  y^{ts} &= f_{\tx{MAML}}(D_i^{\tx{train}}, x^{\tx{test}} \\
  &= f_{\phi_i}(x^{ts}),
 \end{align}
-where $\phi_i = \theta - \alpha \nabla_\theta L(\theta, D_i^{\tx{train}})$.
+where $\phi_i = \theta - \alpha \nabla_\theta L(\theta, D_i^{\tx{train}})$. \\
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.65\textwidth]{images/maml.JPG}
+    \includegraphics[width=0.65\textwidth]{images/maml.jpg}
     \caption{Model-Agnostic Meta-Learning}
     \label{fig:maml}
 \end{figure}
 
 
 {\bf Experiments:} Compare MAML with black-box approaches (SMAIL, MetaNetworks). Tend to find higher performance in domain adaption/extrapolated tasks. \\
-$\ra$ Task was to shear digits in the Omnioglot dataset by some degree and inspect decay on performance. MAML rarely decays in performance. \\
+$\ra$ Task was to shear digits in the Omnioglot data set by some degree and inspect decay on performance. MAML rarely decays in performance. \\
 
 Q: Does this learned structure come at a cost? \\
 
-A: Not really! MAML function can approximation any function of $D_i^{\tx{train}}$, $x^{\tx{test}}$. Assumptions: nonzero $\alpha$, loss function does not lose information about the label, datapoints in $D_i^{\tx{train}}$ are unique. \\
+A: Not really! MAML function can approximation any function of $D_i^{\tx{train}}$, $x^{\tx{test}}$. Assumptions: nonzero $\alpha$, loss function does not lose information about the label, data points in $D_i^{\tx{train}}$ are unique. \\
 
 $\therefore$ MAML has benefit of inductive bias without losing expressive power. \\
 
@@ -403,7 +408,7 @@ A: Sure! Bayesian linear regression on learned features, or closed-form/convex o
 $\ra$ But, can do progressive neural search (w/ MAML) to overcome this.
 
 \item Second-order meta-optimization can exhibit instabilities.
-$\ra$ Lots of solutions available: 1) optimize only inner subset, 2) decouple learning rate, 3) introduce context variables, and so on
+$\ra$ Lots of solutions available: 1) optimize only inner subset, 2) decouple learning rate, 3) introduce context variables.
 \end{itemize}
 
 
@@ -411,17 +416,17 @@ Approach 3: Non-parametric methods. In low data-regimes, non-parametric methods 
 
 $\ra$ During meta-test time: few shot learning $\equiv$ low data regime. During meta-training, still want to be parametric. \\
 
-Q: Can we use parametric meta-learners that produce effectiv non-parametric learners? \\
+Q: Can we use parametric meta-learners that produce effective non-parametric learners? \\
 
 A: Yes! Use non-parametric learners by comparing test data with training images. \\
 
 Key Idea: learn a metric space that leads to more effective comparisons and predictions at test time. \\
 
 %{\bf Comparison:} Compare these three approaches to meta-learning. 
-{\bf Takeaways:} Each approach has some advantages/disavantages, listed in Figure~\ref{fig;maml_types}.
+{\bf Takeaways:} Each approach has some advantages/disadvantages, listed in Figure~\ref{fig;maml_types}.
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.85\textwidth]{images/maml_types.JPG}
+\includegraphics[width=0.85\textwidth]{images/maml_types.jpg}
 \caption{Advantages and disadvantages of different approaches to meta-learning.}
 \label{fig:maml_types}
 \end{figure}
@@ -431,12 +436,12 @@ Approach 4: Bayesian Meta-Learning. \\
 
 Assume we have a parameter prior $\Pr(\theta)$, $\Pr(\phi_i)$, can we sample $\phi_i \sim \Pr(\phi_i \mid x_i^{\tx{train}}, y_i^{\tx{train}})$. \\
 
-Simple Idea: use neural net to produce a gaussian distribution over $h$, with $h$ some subset of relevant weights of the network (like the last layer). \\
+Simple Idea: use neural net to produce a Gaussian distribution over $h$, with $h$ some subset of relevant weights of the network (like the last layer). \\
 
 
 Q: Okay, but what about Bayesian optimization-based meta-learning? \\
 
-A: Sure! Lots of ways to do this. One idea is to model $\Pr(\phi_i \mid \theta)$ as Gaussian, perform variational inference for training (see Ravi and Beatson 2019). Another approach: do gradient-based inference on last layer only, use SVGD to avoid Gaussian modeling assumption (see work by~\citet{liu2016stein}). \\
+A: Sure! Lots of ways to do this. One idea is to model $\Pr(\phi_i \mid \theta)$ as Gaussian, perform variational inference for training (see~\citet{ravi2018amortized}). Another approach: do gradient-based inference on last layer only, use SVGD to avoid Gaussian modeling assumption (see work by~\citet{liu2016stein}). \\
 
 $\ra$ Key Idea; Approximate $\Pr(\phi_i \mid \theta, x_i^{\tx{train}}, y_i^{\tx{train}})$ with a MAP inference. Very crude, but very convenient! \\
 
@@ -504,7 +509,7 @@ Next approach: meta-RL for partially observable RL! Need a richer environmental 
 
 That is, the agent doesn't get to see everything relevant about the world, just some observation $o$ generated based on the state. \\
 
-{\bf Key Idea:} Solving POMDPs is very hard! But, it's similar to meta-learning. Look for a policy $\pi_\theta(a \mid s, z)$, where we don't know $s$, only $z$. Works as follows: 1) Sample $z \sim \hat{p}(z_t \mid s_{1:t}, a_{1:t}, r_{1:t})$, 2) Act according to $\pi_\theta \mid s, z)$, acting as though $z$ was correct. \\
+{\bf Key Idea:} Solving POMDPs is very hard! But, it's similar to meta-learning. Look for a policy $\pi_\theta(a \mid s, z)$, where we don't know $s$, only $z$. Works as follows: 1) Sample $z \sim \hat{p}(z_t \mid s_{1:t}, a_{1:t}, r_{1:t})$, 2) Act according to $\pi_\theta(a\mid s, z)$, acting as though $z$ was correct. \\
 
 
 Three perspectives on Meta-RL:
@@ -516,7 +521,7 @@ Three perspectives on Meta-RL:
 
 But: they're not that different! The POMDP approach is really just the RNN approach with an extra hidden variable, and the MAML approach is just a particular choice for the design of $f_\theta$. \\
 
-\subsubsection{Challenges and Frontiers in Meat Learning}
+\subsubsection{Challenges and Frontiers in Meta Learning}
 
 Lots of exciting directions forward, but lots of challenges, too. \\
 

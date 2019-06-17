@@ -17,7 +17,7 @@ A: lots of things! One idea, though: {\it disentanglement}. \\
 
 Example: Consider geometric shapes placed in a scene, each of a different color/shape/size. If we vary one key aspect (a square's color or size, for instance) of the original image, the representation should change in exactly one way, too. \\
 
-{\bf Focus:} Unsupervised learning od distentangle representations (so, critically, don't get to observe the ground truth factors of variation). \\
+{\bf Focus:} Unsupervised learning to disentangle representations (so, critically, don't get to observe the ground truth factors of variation). \\
 
 \dbox{Contributions:
 \begin{enumerate}
@@ -27,7 +27,7 @@ Example: Consider geometric shapes placed in a scene, each of a different color/
     $\ra$ Can reconcile and still be effective! The theorem is about {\it worst case} data. Our data likely has the right structure that we can still learn these disentangled representations.
 \end{enumerate}}
 
-{\bf Experiments:} six methods, seven datasets, six metrics, yielding 10,000 trained models and 150,000 scores. \\
+{\bf Experiments:} six methods, seven data sets, six metrics, yielding 10,000 trained models and 150,000 scores. \\
 
 $\ra$ Questions to focus on:
 \begin{enumerate}[Q1]
@@ -41,7 +41,7 @@ Experimental findings:
     \item (Toward answering Q1): Random seed and hyperparameters seem to matter more than the choice of the objective function.
     \item (Toward answering Q2): Can't identify obvious trends that can be used as a rule-of-thumb for hyperparameter selection (but, transferring across tasks seems to help).
     $\ra$ Transfer of hyperparameters to different data set and metric does not seem to substantially
-    \item (Toward answering Q3):  Unsupervisd model selection remains a key challenge!
+    \item (Toward answering Q3):  Unsupervised model selection remains a key challenge!
 \end{enumerate}
 
 $\ra$ Implication: good runs from bad hyperparameter settings can easily outperform bad runs from good hyperparameter settings. \\
@@ -51,7 +51,7 @@ $\ra$ Implication: good runs from bad hyperparameter settings can easily outperf
     \item Role of inductive biases and supervision should be made explicit
     \item Concrete practical benefits of disentanglement should be demonstrated
     \item Sound, reproducible experimental setup with several data sets is crucial.
-    \item Code: \url{github.com/google-research/disentanglement_lib/}. Also released 10,000 pretrained models.
+    \item Code: \url{github.com/google-research/disentanglement_lib/}. Also released 10,000 pre-trained models.
 \end{itemize}
 
 
@@ -62,13 +62,13 @@ $\ra$ Implication: good runs from bad hyperparameter settings can easily outperf
 
 Next we have 5 minute contributed talks. They're very short so I suspect I'll have a harder time transcribing.
 
-\subsubsection{DQN and Time Discretization}
+\subsubsection{DQN and Time Discretization~\cite{tallec2019making}}
 
 The speaker is Corentin Tallec. \\
 
 {\bf Point:} Time discretization actually matters in deep RL! \\
 
-$\ra$ Usual RL algorithms with high framerate leads to failure. Scalability often limited by algorithms; better hardware, sensers, actuators, can lead to new hyperparameters. \\
+$\ra$ Usual RL algorithms with high frame rate leads to failure. Scalability often limited by algorithms; better hardware, sensors, actuators, can lead to new hyperparameters. \\
 
 Q: Why is near continuous Q-learning failing? \\
 
@@ -80,7 +80,7 @@ A: Yes! Can look at all these quantities, form new algorithms (for more, see the
 
 \spacerule
 
-\subsubsection{Nonlinear Distributional Gradient TD Learning}
+\subsubsection{Nonlinear Distributional Gradient TD Learning~\cite{qu2018nonlinear}}
 
 The speaker is Chao Qu. \\
  
@@ -95,14 +95,14 @@ The speaker is Chao Qu. \\
 $\ra$ New algorithm: Distributionl GTD2. Uses temporal distribution difference instead of the temporal difference from GTD2. 
 
 \begin{theorem}
-Under mild assumptions, Distributional GTD2 converges in the limit.
+Under mild assumptions, Distributional GTD2 (D-GTD2) converges in the limit.
 \end{theorem}
 
 {\bf Experiments:} Show that D-GTD2 does in fact converge.
 
 \spacerule
 
-\subsubsection{Composing Entropic Policies using Divergence Correction}
+\subsubsection{Composing Entropic Policies using Divergence Correction~\cite{hunt2018composing}}
 
 Talk by Jonathun Hunt. \\
 
@@ -114,7 +114,7 @@ A: Well, perhaps we tend to learn each of them independently, and then merging t
 
 {\bf Problem:} Given training tasks $T_1$ and $T_2$, we want to solve some merged task $T_b = T_1 + T_2$. \\
 
-Prior work: generalized policy improvement~\cite{barreto} \dnote{CITE}, and compositional optimism (Haarnoja 2018 \dnote{CITE}). \\
+Prior work: generalized policy improvement~\cite{barreto2017successor}, and compositional optimism~\cite{Haarnoja}.
 
 Adapt existing ideas to this transfer setting:
 \begin{enumerate}
@@ -127,7 +127,7 @@ $\ra$ New algorithm for composing tasks in continuous action spaces. \\
 
 \spacerule
 
-\subsubsection{TibGM: A Graphical Model Approach for RL}
+\subsubsection{TibGM: A Graphical Model Approach for RL~\cite{adel2019tibgm}}
 
 The speaker is Tameem Adel. \\
 
@@ -139,13 +139,13 @@ $\ra$ Do this by proposing an information theoretic objective aiming at maximizi
 \begin{itemize}
     \item A graphical model based on
     \item Prove a correspondence between new objective and typical reward maximization objective.
-    \item An information theoretic pretraining procedure focusing on exploration.
+    \item An information theoretic pre-training procedure focusing on exploration.
     \item State of the art results on 16 benchmark tasks.
 \end{itemize}
 
 \spacerule
 
-\subsubsection{Multi-Agent Adversarial IRL}
+\subsubsection{Multi-Agent Adversarial IRL~\cite{yu2019multi}}
 
 The talk is by Lantao Yu. \\
 
@@ -180,13 +180,13 @@ Method: introduced Logistic Stochastic Best Response Equilibrium (LSBRE). Optimi
 
 \spacerule
 
-\subsubsection{Policy Consolidation for Continual RL}
+\subsubsection{Policy Consolidation for Continual RL~\cite{kaplanis2019policy}}
 
 {\bf Motivation:} Catastrophic forgetting in neural nets! Nets tend to forget information from prior tasks. \\
 
 $\ra$ Even happens in RL during continual learning, since distribution of seen states change over time as exploration/policy changes. \\
 
-Agents should cope with: dicsrete and continuous changes to data distribution! \\
+Agents should cope with: discrete and continuous changes to data distribution! \\
 
 {\bf Contribiution:} Policy Consolidation agent. A bunch of agents are trained (via PPO) and connected via a KL distillation loss. \\
 
@@ -196,7 +196,7 @@ $\ra$ Final policy stored is the result of distilling all other policies trained
 
 {\bf Future Work:} 1) Look at how to prioritize important memories during training, and 2) Adapt for off-policy learning. \\
 
-\subsubsection{Off Policy Evaluation Deep RL w/o Exploration}
+\subsubsection{Off-Policy Evaluation Deep RL w/o Exploration~\cite{fujimoto2018off}}
 
 Consider: same off-policy algorithm (DDPG) used on same dataset with two differen approaches (orange and blue). \\
 
@@ -221,7 +221,7 @@ Finds that BCQ greatly outperforms some existing methods (DDPG), and is quite st
 
 \spacerule
 
-\subsubsection{Random Expert Distillation}
+\subsubsection{Random Expert Distillation~\cite{wang2019random}}
 
 Talk by Ruohan Wang \\
 
@@ -243,13 +243,13 @@ Optimize a new trajectory based loss based on a new reward function, and prove i
 
 \spacerule
 
-\subsubsection{Revisiting the Softmax Bellman Operator}
+\subsubsection{Revisiting the Softmax Bellman Operator~\cite{song2019revisiting}}
 
 The speaker is Zhao Song. \\
 
 Recall that the Bellman Operator is a contraction. \\
 
-$\ra$ Mellowmax operator~\cite{asadi}\dnote{CITE} is also a contraction:
+$\ra$ Mellowmax operator~\cite{asadi2017alternative} is also a contraction:
 \[
 max_{a'} Q(s',a') \ra \sum_{a'} \frac{\exp \tau Q}{\sum_b \exp \tau Q(s',b)}
 \]
@@ -270,7 +270,7 @@ Analysis showing: good performance, guaranteed convergence, smaller error, reduc
 
 More RL!
 
-\subsubsection{Distributional RL for Efficient Exploration}
+\subsubsection{Distributional RL for Efficient Exploration~\cite{mavrin2019distributional}}
 
 Talk by Hengshuai Yao. \\
 
@@ -287,7 +287,7 @@ But! Using naive exploration bonus doesn't always work: favors actions with high
 {\bf New Idea:} To use optimism in face of uncertainty, perform decaying schedule of the weight of uncertainty. This ensures that as more evidence is gathered, the agent starts to exploit more.
 \spacerule
 
-\subsubsection{Optimistic Policy Optimization via Importance Sampling}
+\subsubsection{Optimistic Policy Optimization via Importance Sampling~\cite{papini2019optimistic}}
 
 Talk by Matteo Papini. \\
 
@@ -323,7 +323,7 @@ Code: \url{github.com/wolfLo/optimist}
 
 \spacerule
 
-\subsubsection{Neural Logic RL}
+\subsubsection{Neural Logic RL~\cite{jiang2019neural}}
 
 The talk is by Shan Luo. \\
 
@@ -337,13 +337,13 @@ $\ra$ Idea: learn logic rules with policy gradient (a new architecture, DILP, tr
 
 \spacerule
 
-\subsubsection{Learning to Collaborate in MDPs}
+\subsubsection{Learning to Collaborate in MDPs~\cite{radanovic2019learning}}
 
 The talk is by Goran Radanovic. \\
 
 {\bf Motivation:} Human-AI collaboration---consider a helper AI assisting a person in solving some task. \\
 
-$\ra$ The agents might share a common goal, but view the different in some way, or have different behavioral differences. \\
+$\ra$ The agents might share a common goal, but view the task differently in some way. \\
 
 Formal model: two-agent MDP, where agents have {\it commitments}. \\
 
@@ -351,7 +351,7 @@ $\ra$ Goal is to design a learning algorithm (for the first, non-human AI) that 
 
 Challenge: from the perspective of A1, the world looks like a non-stationary MDP due to the presence of A2 (the person). \\
 
-{\bf Main Contribution:} Experts with Double Recency Bias, a new algorithm for this setting, based on the recency bias. 
+{\bf Main Contribution:} ``Experts with Double Recency Bias", a new algorithm for this setting, based on the recency bias. 
 
 \begin{theorem}
 (Main Result): The regret of this algorithm decays as $O\left(T^{\frac{1}{4}}\right)$.
@@ -359,7 +359,7 @@ Challenge: from the perspective of A1, the world looks like a non-stationary MDP
 
 \spacerule
 
-\subsubsection{Predictor-Corrector Policy Optimization}
+\subsubsection{Predictor-Corrector Policy Optimization~\cite{cheng2018predictor}}
 
 Talk by Ching-An Cheng. \\
 
@@ -377,7 +377,7 @@ A: Well, models are always inexact! Weaknesses of model can be exploited in poli
 
 Q: Can we reconcile these two camps? \\
 
-A: Sure! This paper: PicColo (see talk title). A meta algorithm based on the idea that: ``shoud not fully trust a model but leverage only the correct part" \\
+A: Sure! This paper: PicColo (see talk title). A meta algorithm based on the idea that: ``should not fully trust a model but leverage only the correct part" \\
 
 $\ra$ How can this be achieved?
 \begin{itemize}
@@ -388,11 +388,9 @@ $\ra$ How can this be achieved?
 
 Online learning: consider a learner and an opponent, with the learning chooses a decision $\pi_n \in \Pi$ every so often. Opponent chooses a loss function to minimize performance, rinse and repeat. \\
 
-$\ra$ Most common performance measure is {\it regret}. {\bf Idea:} Define policy optimization as an online learning process. \\
+$\ra$ Common performance measure is {\it regret}. {\bf Idea:} Define policy optimization as an online learning process. \\
 
-$\ra$ Algorithmically: can try typical no-regret algorithms (mirror descent), but not optimal! Want to learn faster. \\
-
-Idea: view predictability as the ability to predict future gradients. Introduce the following model:
+$\ra$ Algorithmically: can try typical no-regret algorithms (mirror descent), but not optimal! Want to learn faster. So, view predictability as the ability to predict future gradients. Introduce the following model:
 
 \ddef{Predictive model}{A function that estimates the {\it gradient of future loss}
 \[
@@ -423,7 +421,7 @@ PicColO: two steps---1) Prediction step ($\pi_n = \hat{\pi}_n - \eta_{n}\hat{g}_
 
 \spacerule
 
-\subsubsection{Learning a Prior over Intent via Meta IRL}
+\subsubsection{Learning a Prior over Intent via Meta IRL~\cite{xu2018learning}}
 
 Talk by Kelvin Xu. \\
 
@@ -443,16 +441,16 @@ $\ra$ Results: performs very well even only given a small number of demonstratio
 
 \spacerule
 
-\subsubsection{DeepMDP: Learning Late Space Models for RL}
+\subsubsection{DeepMDP: Learning Late Space Models for RL~\cite{gelada2019deepmdp}}
 
 Talk by Carles Gelada. \\
 
 {\bf Goal:} Find simple representations for RL. \\
 
-Approach: learn a latent space model $\bar{M} = \langlage \bar{\mc{S}}, \bar{\mc{A}}, \bar{R}, \bar{T} \rangle$. Based on two losses;
+Approach: learn a latent space model $\bar{M} = \langle \bar{\mc{S}}, \bar{\mc{A}}, \bar{R}, \bar{T} \rangle$. Based on two losses;
 \begin{align}
-    &\bar{R}(s,a) \approx R(s,a), \forall_{s,a} \\
-    \bar{T}(s' \mid s,a) \approx T(s' \mid s,a), \forall_{s,a,s'}.
+    \bar{R}(s,a) &\approx R(s,a), \forall_{s,a} \\
+    \bar{T}(s' \mid s,a) &\approx T(s' \mid s,a), \forall_{s,a,s'}.
 \end{align}
 
 Using these losses, ensure that $\phi$ is a good representation in the sense that it only throws out bad/useless policies. \\
@@ -463,7 +461,7 @@ Using these losses, ensure that $\phi$ is a good representation in the sense tha
 
 \spacerule
 
-\subsubsection{Importance Sampling Policy Evaluation}
+\subsubsection{Importance Sampling Policy Evaluation~\cite{hanna2018importance}}
 
 Talk by Josiah Hanna. \\
 
@@ -485,7 +483,7 @@ Paper provides theory and experiments showing this is a good thing to do.
 
 \spacerule
 
-\subsection{Learning from a Learner}
+\subsubsection{Learning from a Learner~\cite{jacq2019learning}}
 
 Talk by Alexis Jacq. \\
 
@@ -501,7 +499,7 @@ The value of a state action couple is given by the fixed point of the regularize
 
 \spacerule
 
-\subsection{Separating Value Functions Across Time-Scales}
+\subsubsection{Separating Value Functions Across Time-Scales~\cite{romoff2019separating}}
 
 Talk by Joshua Romoff. \\
 
@@ -511,7 +509,7 @@ G_t^k = \sum_{i=0}^{k-1} \gamma^i r_{t+1} + \gamma^k V(s_{t+k}).
 \]
 Can choose $k$ to trade-off between bias-variance. Or, the $\lambda$ returns:
 \[
-G_t^\almbda := (1-\lambda) \sum_{k=1}^\infty \lambda^{k-1} G_t^k.
+G_t^\lambda := (1-\lambda) \sum_{k=1}^\infty \lambda^{k-1} G_t^k.
 \]
 Many tasks are {\it discounted:} when $\gamma \ra 1$, training $V_\gamma$ is difficult. \\
 
@@ -562,13 +560,13 @@ Things they didn't try (but we should!):
 
 {\bf Summary:}
 \begin{enumerate}
-    \item Deompose the value function based off of $\gamma$
+    \item Decompose the value function based off of $\gamma$
     \item Train with Bellman-like equations
     \item Improves sample efficiency
 \end{enumerate}
 
 \spacerule
-\subsubsection{Learning Action Representations in RL}
+\subsubsection{Learning Action Representations in RL~\cite{chandak2019learning}}
 
 Talk by Yash Chandak. \\
 
@@ -593,7 +591,7 @@ New Algorithm: 1) Supervised learning of action representations, and 2) Learn in
 
 \spacerule
 
-\subsubsection{Bayesian Counterfactual Risk Minimization}
+\subsubsection{Bayesian Counterfactual Risk Minimization~\cite{london2018bayesian}}
 
 Talk by Ben London. \\
 
@@ -617,11 +615,11 @@ $\ra$ Motivated by PAC analysis, ensures low generalization error. \\
 
 {\bf This Work:} Bayesian view of CRM (motivated by PAC-Bayes analysis). Yields a nice generalization error bound. \\
 
-$\ra$ Application to mixed logits. \\
+$\ra$ Application to mixed logits.
 
 \spacerule
 
-\subsubsection{Per-Decision Option Counting}
+\subsubsection{Per-Decision Option Counting~\cite{harutyunyan2019per}}
 
 Talk by Anna Haratunyan. \\
 
@@ -635,11 +633,11 @@ A: But, doesn't really handle different horizons. \\
 
 $\ra$ That is, add a per-decision option discount, $(\gamma_r, \gamma_p)$. \\
 
-In this framework, they identify a bias-variance trade-off captured by these new discounts. \\
+In this framework, they identify a bias-variance trade-off captured by these new discounts.
 
 \spacerule
 
-\subsubsection{Problem Dependent Regret Bounds in RL}
+\subsubsection{Problem Dependent Regret Bounds in RL~\cite{zanette2019tighter}}
 
 Talk by Andrea Zanette. \\
 
@@ -668,7 +666,7 @@ $\ra$ Also explore effect of stochasticity on regret. \\
 
 \spacerule
 
-\subsubsection{A Theory of Regularized MDPs}
+\subsubsection{A Theory of Regularized MDPs~\cite{geist2019theory}}
 
 Talk by Matthieu Geist. \\
 
@@ -710,7 +708,7 @@ $\ra$ Can also use this theory to characterize existing approaches to regulariza
 
 \spacerule
 
-\subsubsection{Discovering Options for Exploration by Minimizing Cover Time}
+\subsubsection{Discovering Options for Exploration by Minimizing Cover Time~\cite{jinnai2019discovering}}
 
 \dnote{Now, our paper!} The talk is by Yuu Jinnai. \\
 
@@ -737,7 +735,8 @@ Performed empirical comparison contrasting learning performance with different k
 
 \spacerule
 
-\subsubsection{Policy Certificates: Towards Accountable RL}
+\subsubsection{Policy Certificates: Towards Accountable RL~\cite{dann2018policy}}
+
 Talk by Cristoph Dann. \\
 
 Key contribution: new algorithm for episodic tabular MDPs with:
@@ -752,9 +751,9 @@ and a matching regret bound.
 Motivation, though: {\it accountability}, not necessarily sample efficiency. \\
 
 Q: How good will my treatment be? Is it the best possible? \\
-$\ra$ What kinds of methods can answer these kinds of questions? 
+$\ra$ What kinds of methods can answer these kinds of questions?  \\
 
-{\bf Main IDea:} Introduce {\it policy certificates} to add accountability.
+{\bf Main Idea:} Introduce {\it policy certificates} to add accountability.
 \ddef{Policy Certificate}{Confidence interval around optimal and algorithm's performance}
 
 $\ra$ Natural extension of model-based optimistic algorithms. \\
@@ -769,7 +768,7 @@ Two main benefits:
 
 \spacerule
 
-\subsubsection{Action Robust RL}
+\subsubsection{Action Robust RL~\cite{tessler2019action}}
 
 
 Talk by Chen Tessler. \\
@@ -790,11 +789,11 @@ $\ra$ Propose a Deep RL variant based on this robust MDP algorithm, experiment o
 
 \spacerule
 
-\subsubsection{The Value Function Polytope}
+\subsubsection{The Value Function Polytope~\cite{dadashi2019value}}
 
 Talk by Robert Dadashi. \\
 
-{\bf Central Question:} Can we characterize the geoemtry of the space of possible value functions for a given MDP? \\
+{\bf Central Question:} Can we characterize the geometry of the space of possible value functions for a given MDP? \\
 
 Why ask this?
 \begin{itemize}
