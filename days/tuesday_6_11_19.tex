@@ -51,7 +51,7 @@ $\ra$ Implication: good runs from bad hyperparameter settings can easily outperf
     \item Role of inductive biases and supervision should be made explicit
     \item Concrete practical benefits of disentanglement should be demonstrated
     \item Sound, reproducible experimental setup with several data sets is crucial.
-    \item Code: \url{github.com/google-research/disentanglement_lib/}. Also released 10,000 pre-trained models.
+    \item Code: \url{https://github.com/google-research/disentanglement_lib/}. Also released 10,000 pre-trained models.
 \end{itemize}
 
 
@@ -104,7 +104,7 @@ Under mild assumptions, Distributional GTD2 (D-GTD2) converges in the limit.
 
 \subsubsection{Composing Entropic Policies using Divergence Correction~\cite{hunt2018composing}}
 
-Talk by Jonathun Hunt. \\
+Talk by Jonathan Hunt. \\
 
 Q: How do people solve complex motor control tasks such as juggling and unicycling at the same time? \\
 
@@ -155,9 +155,9 @@ $\ra$ But, it can be hard to design the right reward function! \\
 
 One solution: learn a reward function from expert demonstrations (as in imitation learning). \\
 
-Q: But why shoul we care about reward learning? \\
+Q: But why should we care about reward learning? \\
 
-A: Well, some advantages: 1) scientific inquiry (understanding animal behavior), 2) reward function is the most succinct, robust, and transferable description of a task, 3) can be helpful if we want to reoptimize policies in new environments.  \\
+A: Well, some advantages: 1) scientific inquiry (understanding animal behavior), 2) reward function is the most succinct, robust, and transferable description of a task, 3) can be helpful if we want to re-optimize policies in new environments.  \\
 
 $\ra$ These properties are even more desirable in multi-agent setting! \\
 
@@ -172,7 +172,7 @@ Generalize this setting to multi-agent using Markov Games:
 Solution concept to a Markov Game is a Nash Equilibrium:
 \ddef{Nash Equilibrium}{When no agent can achieve higher expected reward by changing its own policy.}
 
-Method: introduced Logistic Stochastic Best Response Equilibrium (LSBRE). Optimize the pseudolikelihood objective. \\
+Method: introduced Logistic Stochastic Best Response Equilibrium (LSBRE). Optimize the pseudo-likelihood objective. \\
 
 {\bf Experiments:} Policy imitation performance. New method achieves state of the art in both cooperative/communicative and competitive tasks. \\
 
@@ -188,7 +188,7 @@ $\ra$ Even happens in RL during continual learning, since distribution of seen s
 
 Agents should cope with: discrete and continuous changes to data distribution! \\
 
-{\bf Contribiution:} Policy Consolidation agent. A bunch of agents are trained (via PPO) and connected via a KL distillation loss. \\
+{\bf Contribution:} Policy Consolidation agent. A bunch of agents are trained (via PPO) and connected via a KL distillation loss. \\
 
 $\ra$ Final policy stored is the result of distilling all other policies trained. Ensures it doesn't deviate too much from prior performance. \\
 
@@ -319,7 +319,7 @@ Then:
 Regret(T) - \tilde{O}(\sqrt{dT}).
 \]
 
-Code: \url{github.com/wolfLo/optimist} 
+Code: \url{https://github.com/wolfLo/optimist} 
 
 \spacerule
 
@@ -737,7 +737,7 @@ Performed empirical comparison contrasting learning performance with different k
 
 \subsubsection{Policy Certificates: Towards Accountable RL~\cite{dann2018policy}}
 
-Talk by Cristoph Dann. \\
+Talk by Christoph Dann. \\
 
 Key contribution: new algorithm for episodic tabular MDPs with:
 \begin{theorem}

@@ -20,7 +20,7 @@ Measure: Final temperature rise ($^\circ$).
 
 {\bf What needs to Happen?}:
 \begin{itemize}
-    \item Decarobize rapidly and quickly to avoid >$2^\circ$.
+    \item Decarbonize rapidly and quickly to avoid >$2^\circ$.
     \item Zero carbon energy technologies must be shovel ready
     
     $\ra$ Renewables are ready now, relatively scalable.
@@ -34,17 +34,17 @@ Measure: Final temperature rise ($^\circ$).
 \end{itemize}
 
 
-{\bf Idea:} Suppose we want to deploy renewable energy tech (solar, win, and so on). \\
+{\bf Idea:} Suppose we want to deploy renewable energy tech (solar, wind, and so on). \\
 
 $\ra$ Problem: Demand and supply fluctuate dramatically, and thus there will likely be gaps between when we have energy and need energy (consider a cloudy day!).\\
 
-Code/work available exploring cost of renewables called DOSCOE~\cite{platt2017analyzing}. Code: \url{bit.ly/DOSCOE}. \\
+Code/work available exploring cost of renewables called DOSCOE~\cite{platt2017analyzing}. Code: \url{https://bit.ly/DOSCOE}. \\
 
 Q: Can ML help this problem?
 \begin{itemize}
-    \item Most valuable zero-carbon sources are dispatachable (like hydropower)
+    \item Most valuable zero-carbon sources are dispatchable (like hydropower)
     \item Can dispatch demand as well (turn on when carbon intensity of supply is low)
-    \item Can ML/aI demand response?
+    \item Can ML/AI demand response?
     $\ra$ Google  reported 40\% less energy spent on data center cooling via ML control.
 \end{itemize}
 
@@ -57,7 +57,7 @@ Two Caveats:
         \item Currently no incentive for demand response
         \item Increased efficiency lowers price of electricity and fossil fuel
         \item Less energy use $\ra$ more income + economic growth $\ra$ more energy.
-        \item Efficiency makes people better off, even with Jevon's paradox (save 1J of energy, cause >1J of energy consumption).
+        \item Efficiency makes people better off, even with Jevon's paradox (save 1J of energy, cause $>$1J of energy consumption).
     \end{itemize}
 \end{enumerate}
 
@@ -69,15 +69,15 @@ Other things ML can do to help:
 \begin{enumerate}
     \item Flood forecasting:
     \begin{itemize}
-        \item Floods are bad now: 9.8 billion annual damage, effects 250 people per year
+        \item Floods are bad now: 9.8 billion annual damage, affects 250 people per year
         \item Will get worse at higher temperature!
         \item Goal: forecast flood effects using public data.
         
         $\ra$ Problems: data usually too noisy, floods usually in flat areas.
         
-        \item One solution: use ML to derive surface maps, can be used to forcase more accurately
+        \item One solution: use ML to derive surface maps, can be used to forecast more accurately
     \end{itemize}
-    \item Moonshot: push C02 out of atmosphere in second half of the century.
+    \item Moonshot: push CO2 out of atmosphere in second half of the century.
     \begin{itemize}
         \item Bio-energy with carbon capture and sequestration (already assumed in IPCC pathways).
         \item Increase carbon in soil via plants (soil contains $>3\times$ carbon of atmosphere)
@@ -147,7 +147,7 @@ Jack recently founded Open Climate Fix, a non-profit based on two hunches:
     
     \item {\it Industry is unlikely to read your paper:} You need to sit down with people in industry and work on their problems. Help industry use your algorithm! Build a production service, consult, and so on.
     
-    \item {\it Demonstrating Performance:} No standard datasets or metrics or benchmarks.
+    \item {\it Demonstrating Performance:} No standard data sets or metrics or benchmarks.
 
     
 \end{enumerate}
@@ -240,7 +240,7 @@ I arrived just in time for the panel.
 \subsubsection{Panel Discussion}
 \label{sec:panel}
 
-The panelists are Craig Boutilier (CB), Emma Brunskill (EB), Chelsea Finn, Mohammad Ghavamzadeh, John Langford, David Silver, and Peter Stone. I'll abbreviate each by their initials. \\
+The panelists are Craig Boutilier (CB), Emma Brunskill (EB), Chelsea Finn (CF), Mohammad Ghavamzadeh (MG), John Langford (JL), David Silver (DS), and Peter Stone (PS). I'll abbreviate each by their initials. \\
 
 Moderated by Alborz Geramifard (AG). \\
 
@@ -258,7 +258,7 @@ JL: Moving beyond bread and butter that are deployed right now, I think system o
 
 EB: Personalization is a raw term, lots of things are changing in the world. Prior applications (when I was in grad school) was robotics and games. Opportunities now for personalization, given the world right now, is both a huge responsibility {\it and} exciting opportunity. \\
 
-DS: Follow up to something John said in his talk---if we get the foundations right, there will be applications everywhere. If we get an algorithm that just works, we should expect to see RL in all kinds of places. Who knows what methods/approaches are out there? Let's continue to push the foundations. We should of course keep pushing and try to deploy it too, but I think we can expect to be surprised too. Looking a little farther in the future, one open area where there's huge potential for getting RL right is personalized healthcare. Can transform many peoeple's lives. \\
+DS: Follow up to something John said in his talk---if we get the foundations right, there will be applications everywhere. If we get an algorithm that just works, we should expect to see RL in all kinds of places. Who knows what methods/approaches are out there? Let's continue to push the foundations. We should of course keep pushing and try to deploy it too, but I think we can expect to be surprised too. Looking a little farther in the future, one open area where there's huge potential for getting RL right is personalized health care. Can transform many people's lives. \\
 
 MG: Lots of OR applications everywhere---think about system optimization, huge opportunity for RL. What's happening with Amazon storage facilities. One more thing for recommendation systems. Recommender systems are everywhere and we have tons of data. Consequences of our actions are clear, need to consider safety and robustness. Although consequences of actions in recommender systems aren't catastrophic, it's still important we get it right. \\
 
@@ -298,15 +298,15 @@ CF: Completely agreed! If you could make a simulator that's perfect you've alrea
 
 CB: One other principle I'd like to raise---reward function and objective function design. That first reward function you specify is never the right one! We walk away and say ``this is the best policy", but it's clearly not based on the behavior, we got the reward function wrong. Human-in-the loop methods are really important for correcting/designing the right objectives/reward functions. \\
 
-EB: I want to echo that---my lab does a lot of work in education and healthcare. Coupling this work (and these choices of reward functions) with domain experts is massively important. The first known application of RL to education was in 1999 to understand how students do well on problems. Example: give students problems until student gets it right, then give the student the same one over and over again (exploit!). \\
+EB: I want to echo that---my lab does a lot of work in education and health care. Coupling this work (and these choices of reward functions) with domain experts is massively important. The first known application of RL to education was in 1999 to understand how students do well on problems. Example: give students problems until student gets it right, then give the student the same one over and over again (exploit!). \\
 
 DS: Number one principle in my own work---scalability. We should only try to strive for methods that scale well with resources (three: 1) compute, 2) experience, 3) memory). If we can achieve that level of scalability, we just need to scale up the resources. If we design something where we put a ceiling into the method itself (stop exploring, stop learning, other constraints), that ceiling will hurt us. Goal should always be scalability.  If you look at the success of deep learning, I claim it's successful because it scales with all three things (compute, experience, memory). It does better and better with these resources. So we should find the RL methods that scale. \\
 
 MG: First principle is to make sure RL is the right solution for your problem. Second, make sure we have the data available for RL. Think about supervised learned, if half your data is bad, you can still do well. Same situation for RL we can't do well. Reiterate what Craig said: reward functions are super important. Part of the reward function might be company profit (as opposed to say, customer happiness). \\
 
-JL: I want to mention I agree with David. The process of educating people on the realies of RL is always fun. \\
+JL: I want to mention I agree with David. The process of educating people on the realities of RL is always fun. \\
 
-PS: The design principle of our platform at Cogitai is a two part hypothesis: 1) RL is ready for the real world (that is, we, in this room, are ready to solve problems in the real world), and 2) the real world is ready for RL. This second piece is what John mentioned. Lots of problems in the world we know RL is ready, but it's a big challenge for us to work with folks from outside RL/ML to help them identify which problems are RL problems and help them use RL tools to solve their problems. The first bucket is easy (us find RL problems) while the second is hard (convince others). Important point from David: we're going to be surprised! It wasn't the people that made the smartphone that built the apps. We build the technology and tools that enable people outside this room to use these ideas. That's the goal. Get it robust enough that we can be surprised. \\
+PS: The design principle of our platform at Cogitai is a two part hypothesis: 1) RL is ready for the real world (that is, we, in this room, are ready to solve problems in the real world), and 2) the real world is ready for RL. This second piece is what John mentioned. Lots of problems in the world we know RL is ready, but it's a big challenge for us to work with folks from outside RL/ML to help them identify which problems are RL problems and help them use RL tools to solve their problems. The first bucket is easy (us find RL problems) while the second is hard (convince others). Important point from David: we're going to be surprised! It wasn't the people that made the smart-phone that built the apps. We build the technology and tools that enable people outside this room to use these ideas. That's the goal. Get it robust enough that we can be surprised. \\
 
 CB: Widespread acceptance of RL is ultimately an important goal. We could have been having this same conversation $N$ years ago about ML in industry. Not very long ago just getting ML to be accepted in large scale production systems, but here we are. \\
 
@@ -324,7 +324,7 @@ DS: A comment about A-B testing. You raised it as if it were outside RL, but you
 
 \spacerule
 
-Audience-Q: On horizons/reward design. Algorithms might exploit human weaknesses more heavily in the future, a lot of the behaviors of ML algorithms are probably due to their mmyopic nature. Being able to look ahead for multiple timesteps might allow for better reward functions. Thoughts? Second, when we use RL for problems with humans in the loop, what is the longest horizon we can actually use. \\
+Audience-Q: On horizons/reward design. Algorithms might exploit human weaknesses more heavily in the future, a lot of the behaviors of ML algorithms are probably due to their myopic nature. Being able to look ahead for multiple time steps might allow for better reward functions. Thoughts? Second, when we use RL for problems with humans in the loop, what is the longest horizon we can actually use. \\
 
 JL: Right now, typically, horizon is relatively short (hours, minutes, days). As that increases data is harder to come by. If we succeed in RL there's no reason it can't be lifetimes. \\
 
@@ -462,7 +462,7 @@ A: For some distributions over contexts, yes! This is before we could return any
 
 \subsubsection{Miro Dudik: Doubly Robust Off-Policy Evaluation via Shrinkage}
 
-{\bf Problem Setting:} Contextual bandits. Comes up when learning from itneraction data.\\
+{\bf Problem Setting:} Contextual bandits. Comes up when learning from interaction data.\\
 
 \ddef{Contextual Bandit}{An interaction protocol where a user comes to a service, the service presents objects to the user, and the user makes some decision based on the objects given. 
 
@@ -487,7 +487,7 @@ $\ra$ Unbiased, but high variance. \\
 
 Two tricks:
 \begin{enumerate}
-    \item Doubly robust estimate: use direct estimate as a baseline, apply importance weighting to estimate the {\it derpture from the baseline}.
+    \item Doubly robust estimate: use direct estimate as a baseline, apply importance weighting to estimate the {\it departure from the baseline}.
     
     $\ra$ Still unbiased!
     
@@ -509,7 +509,7 @@ Two tricks:
 
 Critically: doubly robust estimator is asymptotically optimal, but in finite samples, other estimators tend to be more accurate. \\
 
-$\ra$ Criticaly:
+$\ra$ Critically:
 \[
 \text{Mean Squared Error = Bias$^2$ + Variance.}
 \]

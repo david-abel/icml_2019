@@ -112,7 +112,7 @@ $\ra$ Finding 2: deeper architectures tend to generalize better (3 vs. 15 conv l
 
 $\ra$ Finding 3: Explore different effects of regularization schemes like $L_2$, dropbout, batch norm, and data augmentation. They are all similarly effective at regularization. \\
 
-Code: \url{github.com/openai/coinrun}
+Code: \url{https://github.com/openai/coinrun}
 
 \spacerule
 
@@ -137,7 +137,7 @@ $\ra$ Consider visual control tasks: MuJoCo but with images as input. \\
 
 Thus: a scalable method for model-based RL in image space. \\
 
-Code: \url{danijar.com/planet}
+Code: \url{https://danijar.com/planet}
 
 \spacerule
 
@@ -266,7 +266,7 @@ Assumptions (with prior state of the art): finite state-action spaces, full know
 
 {\bf Experiments:} 1) Chain domain, 2) Cartpole. \\
 
-Code: \url{github.comn/albertometelli/remps}.
+Code: \url{https://github.comn/albertometelli/remps}.
 
 \spacerule
 
@@ -314,7 +314,7 @@ Q2: How do we characterize complexities for nonlinear control? \\
     \item Oracle complexity analysis
 \end{enumerate}
 
-Code: \url{github.com/vroulet/ilqc}.
+Code: \url{https://github.com/vroulet/ilqc}.
 
 
 \dnote{Now, our other options paper.}
@@ -536,13 +536,13 @@ Talk by David Burt. \\
 
 \begin{itemize}
     \item Advantages: can explicitly represent uncertainty as a function of size of data set.
-    \item Distadvantages: High cost in computational complexity: kernel method, requires storage of kernel matrix $O(N^2)$ space, and need to invert this matrix, so requires $O(N^3)$ time.
+    \item Disadvantages: High cost in computational complexity: kernel method, requires storage of kernel matrix $O(N^2)$ space, and need to invert this matrix, so requires $O(N^3)$ time.
 \end{itemize}
 
 Pseudo-Observation Approximations: approximate based on $M \ll N$ inducting points. \\
 $\ra$ Time of $O(NM^2 + M^3)$, with memory $O(NM)$ (which is much less!). \\
 
-This work: {\it variational} sparse Gaussian inference.Advantages: 
+This work: {\it variational} sparse Gaussian inference. Advantages: 
 \begin{itemize}
     \item We can simultaneously learn hyperparameters by maximizing ELBO.
     \item Approximation of posterior remains uncertain in regions without much data
@@ -554,13 +554,13 @@ Starting point for bounds: for a fixed data set:
 \[
 \KL{Q}{\widehat{P}} \leq \text{Upper Bound} - \tx{ELBO}.
 \]
-Upper and lower bounds collapse on the KL as num dataset increases. In particular, a posteriori bound leads to:
+Upper and lower bounds collapse on the KL as data set size increases. In particular, {\it a posteriori} bound leads to:
 \[
 \KL{Q}{\widehat{P}} \leq \frac{\tx{quality of lowering matrix approx}}{2\sigma_n^2} \left(1 + \frac{||y||^2}{\sigma_n^2}\right).
 \]
 
 
-To prove a priori bounds, need: 1) Efficient procedure for choosing inducing points, and 2) Assumptions about distribution of training data. \\
+To prove {\it a priori} bounds, need: 1) Efficient procedure for choosing inducing points, and 2) Assumptions about distribution of training data. \\
 
 $\ra$ Approximation kernel matrices:
 \[
